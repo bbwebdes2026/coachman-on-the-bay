@@ -27,8 +27,19 @@
   h2,
   h3,
   h4 {
-    @apply font-display;
+    @apply font-display font-medium;
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  /*
+   * Prices only. Cormorant Garamond defaults to old-style (text) figures whose
+   * varying baselines look wrong in a price; force tabular lining figures so
+   * every "R285" / "R1 345" aligns and sits on the cap line.
+   */
+  .price {
+    font-variant-numeric: tabular-nums lining-nums;
   }
 }
 

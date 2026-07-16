@@ -17,7 +17,7 @@ export default function Home() {
         Gqeberha · On the bay
       </p>
 
-      <h1 className="mt-4 font-display text-4xl font-semibold leading-none text-silver-100">
+      <h1 className="mt-4 font-display text-4xl font-medium leading-none text-silver-100">
         The Coachman
       </h1>
 
@@ -37,9 +37,7 @@ export default function Home() {
           <p className="mt-3 font-display text-2xl italic text-silver-100">
             Springbok, oxtail &amp; the bay
           </p>
-          <p className="mt-1 font-display text-3xl tabular-nums text-amber">
-            R285
-          </p>
+          <p className="price mt-1 font-display text-3xl text-amber">R285</p>
         </div>
         <div className="rounded-lg bg-navy-800 p-6">
           <span className="text-xs uppercase tracking-widest text-silver-400">
@@ -77,7 +75,7 @@ export default function Home() {
       <div className="mt-14">
         <a
           href="#"
-          className="inline-flex items-center rounded-full bg-amber px-7 py-3 font-sans text-sm font-semibold uppercase tracking-widest text-midnight transition-transform duration-200 ease-out hover:scale-[1.02]"
+          className="inline-flex items-center rounded-[3px] bg-amber px-7 py-3 font-sans text-sm font-semibold uppercase tracking-widest text-midnight transition-transform duration-200 ease-out hover:scale-[1.02]"
         >
           Reserve a table
         </a>
