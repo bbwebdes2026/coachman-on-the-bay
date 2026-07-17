@@ -60,18 +60,20 @@ const AVIF_Q = 55; // AVIF ~55 is visually comparable to JPEG q80
 
 // Bump when the upscale/grade parameters change so existing outputs rebuild
 // even though the raw source hash is unchanged.
-const PIPELINE_VERSION = 5;
+const PIPELINE_VERSION = 6;
 
-// Real-ESRGAN tile sizes to try, largest first. Bigger tiles avoid the visible
-// tile-seam artifacts that small tiles leave on smooth gradients (ceilings,
-// dark floors); per-tile VRAM scales with tilesize², so we fall back to smaller
-// tiles if a GPU can't allocate the larger ones.
-//
-// Measured on this hardware: 640 is seam-free on the Radeon iGPU (which carves
-// its heap out of system RAM), but OOMs on the RTX 3060's 6GB. 448 is the
-// largest the 3060 sustains, and is visually indistinguishable from 640 — so
-// discrete stays worth it. Below ~320 the seams return; Lanczos beats a seamed
-// upscale, hence no tiny tiles and no 0 (auto picks a seam-causing size).
+// realesrgan-x4plus is a 4x model and MUST be run at 4x. Asking it for -s 2 or
+// -s 3 does not resample the result — it corrupts the tiling, and the tiles
+// come back reassembled in the wrong places (measured drift ~48 against a
+// Lanczos reference, where a correct pass scores ~3.5). That bug shipped once;
+// it is why upscale() always runs native and Sharp does the resizing.
+const REALESRGAN_MODEL = "realesrgan-x4plus";
+const REALESRGAN_SCALE = 4;
+
+// Tile sizes to try, largest first. Per-tile VRAM scales with tilesize², so we
+// fall back if a GPU can't allocate the larger ones: 640 fits the 448px crops
+// (smaller than the tile, so untiled) but OOMs the RTX 3060's 6GB on the full
+// frames, where 448 is the largest that fits.
 const TILE_SIZES = [640, 448, 384, 320];
 
 // First tile size that actually worked, reused for subsequent images so we
@@ -270,12 +272,51 @@ async function isDegenerate(file) {
   }
 }
 
+/** Mean per-pixel difference from a Lanczos upscale of the same source. */
+const STRUCTURE_TOLERANCE = 15;
+
 /**
- * Upscale `inputPath` to a PNG in CACHE_DIR and return its path. Uses
- * Real-ESRGAN when available, otherwise a Lanczos Sharp upscale. `scale` is
- * one of 2/3/4.
+ * How far an upscale has drifted from where the picture actually is.
+ *
+ * A plain Lanczos upscale is soft but structurally beyond question: every pixel
+ * lands where it belongs. So a sane neural upscale must still match it at low
+ * frequencies — blur them both down and they should agree. Misassembled tiles
+ * will not, and that is the failure this catches.
+ *
+ * Calibrated on this library: a second Lanczos scores ~1, a good Real-ESRGAN
+ * pass ~3.5, and output with shuffled tiles ~48. Anything past
+ * STRUCTURE_TOLERANCE is not a style difference, it is wrong.
  */
-async function upscale(inputPath, scale, cacheKey) {
+async function structureDiff(candidate, sourcePath) {
+  const W = 200;
+  const H = 156;
+  const sig = (input) =>
+    sharp(input).greyscale().resize(W, H, { fit: "fill" }).raw().toBuffer();
+  const meta = await sharp(sourcePath).metadata();
+  const [ref, got] = await Promise.all([
+    sharp(sourcePath)
+      .resize({
+        width: meta.width * REALESRGAN_SCALE,
+        height: meta.height * REALESRGAN_SCALE,
+        kernel: sharp.kernel.lanczos3,
+      })
+      .greyscale()
+      .resize(W, H, { fit: "fill" })
+      .raw()
+      .toBuffer(),
+    sig(candidate),
+  ]);
+  let sum = 0;
+  for (let i = 0; i < ref.length; i++) sum += Math.abs(ref[i] - got[i]);
+  return sum / ref.length;
+}
+
+/**
+ * Upscale `inputPath` to a PNG in CACHE_DIR at the model's native 4x and return
+ * its path. Falls back to a Lanczos upscale if Real-ESRGAN is unavailable or
+ * its output fails validation. Callers downscale to the target size afterwards.
+ */
+async function upscale(inputPath, cacheKey) {
   await mkdir(CACHE_DIR, { recursive: true });
   const outPath = path.join(CACHE_DIR, `${cacheKey}.up.png`);
 
@@ -292,9 +333,9 @@ async function upscale(inputPath, scale, cacheKey) {
           [
             "-i", inputPath,
             "-o", outPath,
-            "-n", "realesrgan-x4plus", // general photo model
-            "-s", String(scale),
-            "-t", String(tile), // large tiles avoid seam artifacts
+            "-n", REALESRGAN_MODEL,
+            "-s", String(REALESRGAN_SCALE), // must be the model's native scale
+            "-t", String(tile),
             "-m", path.join(BIN_DIR, "models"),
             "-f", "png",
             ...(engine.gpuId != null ? ["-g", String(engine.gpuId)] : []),
@@ -313,10 +354,16 @@ async function upscale(inputPath, scale, cacheKey) {
         if (!existsSync(outPath)) throw new Error("no output produced");
         if (await isDegenerate(outPath)) throw new Error("output is blank");
 
+        const drift = await structureDiff(outPath, inputPath);
+        if (drift > STRUCTURE_TOLERANCE) {
+          throw new Error(`output does not match the source (drift ${drift.toFixed(1)})`);
+        }
+
         workingTile = tile;
         return {
           path: outPath,
-          method: `realesrgan(t=${tile},g=${engine.gpuId ?? "auto"})`,
+          method: `realesrgan(x${REALESRGAN_SCALE},t=${tile},g=${engine.gpuId ?? "auto"})`,
+          drift,
         };
       } catch (err) {
         // Most likely a Vulkan OOM — per-tile VRAM scales with tilesize², so
@@ -328,18 +375,17 @@ async function upscale(inputPath, scale, cacheKey) {
     console.warn("    · Real-ESRGAN failed at all tile sizes; Lanczos fallback.");
   }
 
-  // CPU fallback: Lanczos upscale to the target long edge.
+  // CPU fallback: Lanczos at the same scale. Softer, but never wrong.
   const meta = await sharp(inputPath).metadata();
-  const targetLong = Math.max(meta.width, meta.height) * scale;
   await sharp(inputPath)
     .resize({
-      width: meta.width >= meta.height ? targetLong : undefined,
-      height: meta.height > meta.width ? targetLong : undefined,
+      width: meta.width * REALESRGAN_SCALE,
+      height: meta.height * REALESRGAN_SCALE,
       kernel: sharp.kernel.lanczos3,
     })
     .png()
     .toFile(outPath);
-  return { path: outPath, method: "lanczos" };
+  return { path: outPath, method: "lanczos", drift: 0 };
 }
 
 // ---------------------------------------------------------------------------
@@ -619,13 +665,14 @@ async function processOne(baseName, opts, manifest) {
   let upscaled = false;
   let method = "none";
   if (longEdge < UPSCALE_THRESHOLD) {
-    const scale = Math.min(4, Math.max(2, Math.ceil(MAX_LONG_EDGE / longEdge)));
-    const up = await upscale(upscaleInput, scale, baseName);
+    const up = await upscale(upscaleInput, baseName);
     workingInput = up.path;
     upscaled = true;
     method = up.method;
     const from = opts.crop ? `${rawFile} crop ${longEdge}px` : `${longEdge}px`;
-    console.log(`  ↑ ${baseName}  ${from} → ${scale}x (${method})`);
+    console.log(
+      `  ↑ ${baseName}  ${from} → ${method}  drift ${up.drift.toFixed(1)}`,
+    );
   } else {
     console.log(`  · ${baseName}  ${longEdge}px (no upscale needed)`);
   }

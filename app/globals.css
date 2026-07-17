@@ -47,8 +47,12 @@
  * Day-to-night narrative (see components/DayToNight.tsx).
  *
  * Baseline — no JS, pre-hydration, or reduced motion: every section paints its
- * own end-state colours from `data-tone`, so the page is always correct and
- * readable on its own.
+ * own colours from `data-tone`, so the page is always correct and readable on
+ * its own, and the dusk band carries a static gradient so the day→night beat
+ * still reads with the timeline off.
+ *
+ * Text colour is owned here and never animated — it is what guarantees the copy
+ * stays legible no matter where the scrub is parked.
  */
 [data-tone="day"] {
   background-color: theme("colors.coast-50");
@@ -60,18 +64,28 @@
   color: theme("colors.silver-100");
 }
 
+.dusk-band {
+  background: linear-gradient(
+    to bottom,
+    theme("colors.coast-50"),
+    #2c3d5a 55%,
+    theme("colors.midnight")
+  );
+}
+
 /*
- * Enhanced — DayToNight has mounted and owns the colour. Sections go
- * transparent and the scrubbed custom properties on <body> show through.
+ * Enhanced — DayToNight has mounted and owns the ground. Sections and the band
+ * go transparent so the scrubbed background on <body> shows through. Colour is
+ * untouched.
  */
 html.dn-active body {
   background-color: var(--dn-bg);
-  color: var(--dn-fg);
 }
 
-html.dn-active [data-tone] {
+html.dn-active [data-tone],
+html.dn-active .dusk-band {
   background-color: transparent;
-  color: inherit;
+  background-image: none;
 }
 
 /* Amber accents fade up as night falls; 1 when the timeline isn't running. */

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-17T10:24:26.104Z",
+  "generatedAt": "2026-07-17T11:18:08.654Z",
   "entries": {
     "terrace-bay": {
       "raw": "assets-raw/seating-area3.jpg",
       "rawHash": "5ef00de564daf4b62ddfed08ee89f9c829910da320a375fcf16f6df36381cb4d",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "crop": {
         "left": 0,
         "top": 0,
@@ -24,7 +24,7 @@
         "height": 1792
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=640,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=640,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -36,7 +36,7 @@
     "terrace-umbrellas": {
       "raw": "assets-raw/seating-area3.jpg",
       "rawHash": "5ef00de564daf4b62ddfed08ee89f9c829910da320a375fcf16f6df36381cb4d",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "crop": {
         "left": 448,
         "top": 0,
@@ -56,7 +56,7 @@
         "height": 1792
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=640,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=640,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -68,7 +68,7 @@
     "Seating-area1": {
       "raw": "assets-raw/Seating-area1.jpg",
       "rawHash": "86269894e5a63974be7d0d7e402d37a2983715020750b83b9a0a32fbfd66094e",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1400,
         "height": 1093
@@ -78,7 +78,7 @@
         "height": 1874
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -94,7 +94,7 @@
     "seating-area2": {
       "raw": "assets-raw/seating-area2.jpg",
       "rawHash": "223020a4d0931dc5b15fd95bcbf6e8cf55cdca21658bf769f5fa51e03efbb4bd",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1400,
         "height": 1093
@@ -104,7 +104,7 @@
         "height": 1874
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -116,7 +116,7 @@
     "bar-area": {
       "raw": "assets-raw/bar-area.jpg",
       "rawHash": "b34dfb1ef44cda775dcb2fcfdbb2ce3b80a53f8f8134ed0b1b4c23ab2a8ffa7e",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 500,
         "height": 889
@@ -126,7 +126,7 @@
         "height": 2400
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -142,7 +142,7 @@
     "the-notorious-coachman-chair": {
       "raw": "assets-raw/the-notorious-coachman-chair.jpg",
       "rawHash": "86948c420b6ff75c1ce503c071d5753facab89fefb3534215095d69d5c46fe37",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 525,
         "height": 450
@@ -152,7 +152,7 @@
         "height": 1800
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": false,
       "graded": true,
       "outputs": {
@@ -164,7 +164,7 @@
     "food-image1": {
       "raw": "assets-raw/food-image1.jpg",
       "rawHash": "acf9d377ddefe22b37b456656375462ad0d317541ebc910be93ac825519e2c47",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1080,
         "height": 729
@@ -174,7 +174,7 @@
         "height": 1620
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": true,
       "graded": true,
       "outputs": {
@@ -186,7 +186,7 @@
     "food-image2": {
       "raw": "assets-raw/food-image2.jpg",
       "rawHash": "a1e7a4d9e2d485e05d414b00f9165cc68de45150026c1c4a6a19470337851596",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1080,
         "height": 1080
@@ -196,7 +196,7 @@
         "height": 2400
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": true,
       "graded": true,
       "outputs": {
@@ -208,7 +208,7 @@
     "food-image3": {
       "raw": "assets-raw/food-image3.jpg",
       "rawHash": "0c401c2093365aef113483a11d4d630ec0a90825fa58f6536e2725cfb5013565",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1080,
         "height": 1080
@@ -218,7 +218,7 @@
         "height": 2400
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": true,
       "graded": true,
       "outputs": {
@@ -230,7 +230,7 @@
     "food-image4": {
       "raw": "assets-raw/food-image4.jpg",
       "rawHash": "2e2d6b22d8fcba0745cd7f7059294e98e9baf62b7e090d552fb400eac76cfd89",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1080,
         "height": 1080
@@ -240,7 +240,7 @@
         "height": 2400
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": true,
       "graded": true,
       "outputs": {
@@ -252,7 +252,7 @@
     "food-image5": {
       "raw": "assets-raw/food-image5.jpg",
       "rawHash": "1228883b6855706a88dfe5377381cb10c59cee91ab8bd42ecd6a8c4b3bbacf90",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1080,
         "height": 1190
@@ -262,7 +262,7 @@
         "height": 2400
       },
       "upscaled": true,
-      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "upscaleMethod": "realesrgan(x4,t=448,g=1)",
       "food": true,
       "graded": true,
       "outputs": {
@@ -274,7 +274,7 @@
     "coachman-mark": {
       "raw": "assets-raw/coachman-logo.jpg",
       "rawHash": "27901f71b1a5b79715910b2bcb86f3bc6dba1ba4a2d7fa36e16e8aecee7fd24c",
-      "pipelineVersion": 5,
+      "pipelineVersion": 6,
       "source": {
         "width": 1069,
         "height": 1064

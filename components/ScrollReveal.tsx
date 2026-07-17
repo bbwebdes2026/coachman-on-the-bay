@@ -39,8 +39,12 @@ export default function ScrollReveal({
           stagger: 0.35,
           scrollTrigger: {
             trigger: el,
-            start: "top 82%",
-            end: "bottom 62%",
+            // Finish while the paragraph is still coming up the screen, not as
+            // it leaves: ending on its own bottom meant it only resolved once
+            // you had scrolled past it, so it read as dim exactly when it was
+            // level with you. Fully resolved by the time its centre is at 60%.
+            start: "top 90%",
+            end: "center 60%",
             scrub: 0.5,
           },
         },

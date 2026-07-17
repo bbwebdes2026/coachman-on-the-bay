@@ -27,15 +27,27 @@ import { useReducedMotion } from "framer-motion";
 
 type Rgb = [number, number, number];
 
-/** Mirrors the design tokens in tailwind.config.ts. */
-const STOPS: { at: number; bg: Rgb; fg: Rgb; accent: number }[] = [
-  // Daylight: the terrace. coast-50 ground, midnight ink.
-  { at: 0, bg: [0xf4, 0xf7, 0xf9], fg: [0x0a, 0x12, 0x20], accent: 0 },
+/**
+ * Background only. Text colour is NOT animated, and must not be.
+ *
+ * Interpolating ink and ground together looks obvious on paper and fails in
+ * practice: both pass through mid-grey at the same moment, and contrast
+ * collapses to about 1.2:1 — the copy vanishes mid-scroll. There is no curve
+ * that fixes it, because any crossfade from dark ink to light ink has to cross
+ * the middle. So each section keeps a fixed, legible colour (see data-tone in
+ * globals.css) and only the ground moves, in the gap between sections where no
+ * text is on screen.
+ *
+ * Mirrors the design tokens in tailwind.config.ts.
+ */
+const STOPS: { at: number; bg: Rgb; accent: number }[] = [
+  // Daylight: the terrace.
+  { at: 0, bg: [0xf4, 0xf7, 0xf9], accent: 0 },
   // Dusk: the bay going blue. Sits between coast-300 and midnight, which is
   // what keeps the transition reading as evening rather than as a grey fade.
-  { at: 0.55, bg: [0x2c, 0x3d, 0x5a], fg: [0xc3, 0xcd, 0xda], accent: 0.5 },
-  // Night: the dining room. midnight ground, silver-100 ink, amber up.
-  { at: 1, bg: [0x0a, 0x12, 0x20], fg: [0xe6, 0xea, 0xef], accent: 1 },
+  { at: 0.55, bg: [0x2c, 0x3d, 0x5a], accent: 0.5 },
+  // Night: the dining room, and amber up.
+  { at: 1, bg: [0x0a, 0x12, 0x20], accent: 1 },
 ];
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -52,11 +64,7 @@ function sample(progress: number) {
   const mix = (a: Rgb, b: Rgb): string =>
     `rgb(${Math.round(lerp(a[0], b[0], t))} ${Math.round(lerp(a[1], b[1], t))} ${Math.round(lerp(a[2], b[2], t))})`;
 
-  return {
-    bg: mix(from.bg, to.bg),
-    fg: mix(from.fg, to.fg),
-    accent: lerp(from.accent, to.accent, t),
-  };
+  return { bg: mix(from.bg, to.bg), accent: lerp(from.accent, to.accent, t) };
 }
 
 export default function DayToNight({ children }: { children: ReactNode }) {
@@ -71,21 +79,25 @@ export default function DayToNight({ children }: { children: ReactNode }) {
     const root = document.documentElement;
 
     const apply = (progress: number) => {
-      const { bg, fg, accent } = sample(progress);
+      const { bg, accent } = sample(progress);
       root.style.setProperty("--dn-bg", bg);
-      root.style.setProperty("--dn-fg", fg);
       root.style.setProperty("--dn-accent", String(accent));
     };
 
     apply(0);
     root.classList.add("dn-active");
 
+    // Run the whole interpolation across the dusk band — the empty stretch
+    // between the heritage strip and the dining room. Anchoring to it is what
+    // keeps text out of the transition: it only begins once the band's top
+    // reaches the top of the viewport, by which point the heritage copy has
+    // left, and it finishes before the dining room's copy has arrived.
+    const band = el.querySelector<HTMLElement>("[data-dn-band]") ?? el;
+
     const st = ScrollTrigger.create({
-      trigger: el,
-      // Starts as the heritage strip enters, completes as the dining room
-      // settles into view — so the room arrives already at night.
-      start: "top 80%",
-      end: "70% 45%",
+      trigger: band,
+      start: "top top",
+      end: "bottom 30%",
       scrub: 0.5,
       onUpdate: (self) => apply(self.progress),
     });
@@ -93,9 +105,7 @@ export default function DayToNight({ children }: { children: ReactNode }) {
     return () => {
       st.kill();
       root.classList.remove("dn-active");
-      for (const p of ["--dn-bg", "--dn-fg", "--dn-accent"]) {
-        root.style.removeProperty(p);
-      }
+      for (const p of ["--dn-bg", "--dn-accent"]) root.style.removeProperty(p);
     };
   }, [reduced]);
 
