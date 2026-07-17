@@ -87,16 +87,24 @@ export default function DayToNight({ children }: { children: ReactNode }) {
     apply(0);
     root.classList.add("dn-active");
 
-    // Run the whole interpolation across the dusk band — the empty stretch
-    // between the heritage strip and the dining room. Anchoring to it is what
-    // keeps text out of the transition: it only begins once the band's top
-    // reaches the top of the viewport, by which point the heritage copy has
-    // left, and it finishes before the dining room's copy has arrived.
+    // Run the interpolation across the dusk band — the empty stretch between the
+    // heritage strip and the dining room — but lead into it slightly, so night is
+    // already falling as the last of the heritage copy leaves rather than waiting
+    // for an empty screen to begin.
+    //
+    // The lead is budgeted, not eyeballed. The heritage copy is midnight ink on
+    // the daylight ground, so every step the ground darkens under it costs
+    // contrast: measured against these STOPS it holds 5.95:1 at progress 0.30 and
+    // breaks the 4.5:1 AA floor by 0.40. Starting at `top 15%` (band top 15% down
+    // the viewport) puts progress at ~0.27 — about 6.4:1 — at the instant the
+    // paragraph clears the top edge, which is the worst moment. Earlier than this
+    // and the text is dimming while you are still reading it. That is the whole
+    // constraint: the copy must never be the thing that fades.
     const band = el.querySelector<HTMLElement>("[data-dn-band]") ?? el;
 
     const st = ScrollTrigger.create({
       trigger: band,
-      start: "top top",
+      start: "top 15%",
       end: "bottom 30%",
       scrub: 0.5,
       onUpdate: (self) => apply(self.progress),
