@@ -41,6 +41,44 @@
   .price {
     font-variant-numeric: tabular-nums lining-nums;
   }
+
+  /*
+   * Brushed-metal section headings — the static, always-on reading of the
+   * "Shiny Text" chrome sweep, matching the wall logo's silver-100→silver-400
+   * gradient endpoints. A vertical gradient clipped to the glyphs; no animation,
+   * so it is safe under reduced motion and costs nothing.
+   */
+  .text-chrome {
+    background: linear-gradient(
+      180deg,
+      theme("colors.silver-100") 0%,
+      theme("colors.silver-400") 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/*
+ * Flowing Menu (react.bits, adapted) — the navigator's per-row hover strip.
+ * The coloured panel slides in on the cursor's edge (GSAP, in the component);
+ * this is only the continuous horizontal drift of the strip's contents. Two
+ * identical halves translated to -50% loop seamlessly. The global
+ * reduced-motion guard neutralises this animation, and the component disables
+ * the hover reveal entirely, so the strip is never seen in motion there.
+ */
+@keyframes coachman-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: coachman-marquee 26s linear infinite;
 }
 
 /*

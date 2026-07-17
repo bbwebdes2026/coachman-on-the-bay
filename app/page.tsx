@@ -3,6 +3,7 @@ import Heritage from "@/components/Heritage";
 import DiningRoom from "@/components/DiningRoom";
 import DayToNight from "@/components/DayToNight";
 import DuskStars from "@/components/DuskStars";
+import FlowingMenu from "@/components/FlowingMenu";
 
 export default function Home() {
   return (
@@ -24,6 +25,9 @@ export default function Home() {
 
         <DiningRoom />
       </DayToNight>
+
+      {/* Section 5 — the Flowing Menu navigator, on the settled midnight. */}
+      <FlowingMenu />
     </main>
   );
 }
