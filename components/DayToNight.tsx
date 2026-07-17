@@ -52,6 +52,14 @@ const STOPS: { at: number; bg: Rgb; accent: number }[] = [
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
+// Smoothstep, clamped. Used to ease the starfield in over a progress window
+// rather than ramping it linearly — the resolve should feel like lights warming
+// up, not a dimmer sweep.
+const smooth = (a: number, b: number, x: number) => {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+};
+
 function sample(progress: number) {
   const p = Math.min(1, Math.max(0, progress));
   let i = 0;
@@ -82,6 +90,20 @@ export default function DayToNight({ children }: { children: ReactNode }) {
       const { bg, accent } = sample(progress);
       root.style.setProperty("--dn-bg", bg);
       root.style.setProperty("--dn-accent", String(accent));
+
+      // The dusk band's starfield (see components/DuskStars.tsx) resolves off
+      // the same scrub — no second trigger, just two more custom properties.
+      //
+      // These gates are a contract with the contrast budget above. The heritage
+      // copy clears the top edge at progress 0.298 at 5.97:1 — the whole
+      // budget. Stars are self-lit and carry no contrast obligation, but they
+      // must never share the screen with the copy's exit: layer A resolves over
+      // 0.45→0.72, layer B over 0.58→0.85, so nothing is visible before 0.45 —
+      // 0.15 of clearance past the worst moment. Move these earlier only if the
+      // copy's exit moves earlier first; the numbers are linked the same way
+      // `start` and the STOPS are.
+      root.style.setProperty("--dn-stars-a", String(smooth(0.45, 0.72, progress)));
+      root.style.setProperty("--dn-stars-b", String(smooth(0.58, 0.85, progress)));
     };
 
     apply(0);
@@ -114,7 +136,8 @@ export default function DayToNight({ children }: { children: ReactNode }) {
     return () => {
       st.kill();
       root.classList.remove("dn-active");
-      for (const p of ["--dn-bg", "--dn-accent"]) root.style.removeProperty(p);
+      for (const p of ["--dn-bg", "--dn-accent", "--dn-stars-a", "--dn-stars-b"])
+        root.style.removeProperty(p);
     };
   }, [reduced]);
 
