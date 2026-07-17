@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
  * Site-wide Lenis smooth scroll.
@@ -9,6 +11,11 @@ import Lenis from "lenis";
  * Respects `prefers-reduced-motion`: when the user asks for reduced motion we
  * never instantiate Lenis, so the page falls back to native scrolling with no
  * inertia. We also re-check on change, so a mid-session toggle is honoured.
+ *
+ * Lenis drives ScrollTrigger. Lenis moves the page on its own rAF loop rather
+ * than by native scrolling, so without this ScrollTrigger reads a stale scroll
+ * position and every scrubbed timeline (the day-to-night narrative) lags behind
+ * the page by a frame or more.
  */
 export default function SmoothScroll() {
   useEffect(() => {
@@ -19,10 +26,13 @@ export default function SmoothScroll() {
 
     const start = () => {
       if (lenis) return;
+      gsap.registerPlugin(ScrollTrigger);
       lenis = new Lenis({
         lerp: 0.1,
         smoothWheel: true,
       });
+
+      lenis.on("scroll", ScrollTrigger.update);
 
       const raf = (time: number) => {
         lenis?.raf(time);
@@ -35,6 +45,7 @@ export default function SmoothScroll() {
       cancelAnimationFrame(rafId);
       lenis?.destroy();
       lenis = null;
+      ScrollTrigger.update();
     };
 
     const sync = () => {

@@ -60,7 +60,7 @@ const AVIF_Q = 55; // AVIF ~55 is visually comparable to JPEG q80
 
 // Bump when the upscale/grade parameters change so existing outputs rebuild
 // even though the raw source hash is unchanged.
-const PIPELINE_VERSION = 4;
+const PIPELINE_VERSION = 5;
 
 // Real-ESRGAN tile sizes to try, largest first. Bigger tiles avoid the visible
 // tile-seam artifacts that small tiles leave on smooth gradients (ceilings,
@@ -79,24 +79,47 @@ const TILE_SIZES = [640, 448, 384, 320];
 let workingTile = null;
 
 /**
- * The ONLY files treated as photography. Everything else in /assets-raw is a
- * menu-text screenshot (menu data) and is intentionally excluded.
+ * The ONLY photography we publish, keyed by OUTPUT name. Everything else in
+ * /assets-raw is a menu-text screenshot (menu data for /data/menu.ts) and is
+ * intentionally excluded.
+ *   raw     — source file in /assets-raw (one raw file may emit several outputs)
+ *   crop    — extract this region from the RAW, before upscaling
  *   food    — mild saturation lift (food shots only)
  *   duotone — also emit a navy/silver *-duo variant
  *   grade   — false to skip the photographic grade (the logo mark)
  */
 const SOURCES = {
-  "seating-area3.jpg": { food: false }, // daylight terrace / bay — hero
-  "Seating-area1.jpg": { food: false, duotone: true }, // dining room, LED coves
-  "seating-area2.jpg": { food: false }, // bar + brushed-metal wall logo
-  "bar-area.jpg": { food: false, duotone: true }, // weaker candid interior
-  "the-notorious-coachman-chair.jpg": { food: false }, // the teal chair — feature
-  "food-image1.jpg": { food: true },
-  "food-image2.jpg": { food: true },
-  "food-image3.jpg": { food: true },
-  "food-image4.jpg": { food: true },
-  "food-image5.jpg": { food: true },
-  "coachman-logo.jpg": { food: false, grade: false }, // logo mark — optimise only
+  // seating-area3.jpg is NOT a photograph — it is a four-panel contact sheet
+  // (800x531 raw) with stitch seams measured at x=448 / y=448 in raw
+  // coordinates. Publishing it whole would put a visible grid of four photos
+  // in the hero. Crop the two usable daylight panels out of the raw instead.
+  //
+  // Cropping BEFORE the upscale is what buys the resolution: Real-ESRGAN takes
+  // the 448px panel to 1792px, where cropping the already-upscaled collage
+  // would cap the hero at 1344px.
+  "terrace-bay": {
+    raw: "seating-area3.jpg", // hero — tables, umbrella, the bay in daylight
+    crop: { left: 0, top: 0, width: 448, height: 448 },
+  },
+  "terrace-umbrellas": {
+    raw: "seating-area3.jpg", // terrace under the white umbrellas
+    crop: { left: 448, top: 0, width: 352, height: 448 },
+  },
+
+  "Seating-area1": { raw: "Seating-area1.jpg", duotone: true }, // dining room, LED coves
+  "seating-area2": { raw: "seating-area2.jpg" }, // bar + brushed-metal wall logo
+  "bar-area": { raw: "bar-area.jpg", duotone: true }, // weaker candid interior
+  "the-notorious-coachman-chair": { raw: "the-notorious-coachman-chair.jpg" },
+  "food-image1": { raw: "food-image1.jpg", food: true },
+  "food-image2": { raw: "food-image2.jpg", food: true },
+  "food-image3": { raw: "food-image3.jpg", food: true },
+  "food-image4": { raw: "food-image4.jpg", food: true },
+  "food-image5": { raw: "food-image5.jpg", food: true },
+
+  // coachman-logo.jpg is a marketing graphic, not a logo file: the blackletter
+  // lockup composited over a stock beach photograph. Key the mark out of it —
+  // see extractMark. The beach composite itself is never published.
+  "coachman-mark": { raw: "coachman-logo.jpg", mark: true },
 };
 
 // ---------------------------------------------------------------------------
@@ -320,6 +343,108 @@ async function upscale(inputPath, scale, cacheKey) {
 }
 
 // ---------------------------------------------------------------------------
+// Logo mark
+// ---------------------------------------------------------------------------
+
+/** Silver-100 — the mark is tinted flat so it reads on midnight and on photos. */
+const MARK_TINT = { r: 0xe6, g: 0xea, b: 0xef };
+/** Luminance below this is mark; above is beach. */
+const MARK_THRESHOLD = 80;
+/** Width of the soft edge, in luminance units — keeps the key antialiased. */
+const MARK_SOFT = 22;
+/** Connected components smaller than this are sea glints and sand speckle. */
+const MARK_MIN_COMPONENT = 60;
+
+/**
+ * Key the logo lockup out of the supplied marketing graphic.
+ *
+ * The mark is a solid navy silhouette over sky/sea/sand. Measured on the raw
+ * file, the histogram is cleanly bimodal — the mark sits at luminance ~48-63,
+ * the background at ~160-223, with almost nothing between — so a luminance key
+ * separates them without touching hue.
+ *
+ * The wrinkle is the horizon: a strip of dark sea falls under the threshold and
+ * keys in as a wispy streak beside the horse. It survives as a scatter of small
+ * blobs, so dropping components below MARK_MIN_COMPONENT removes it while every
+ * letterform (all far larger) is kept. Lowering that floor brings the streak
+ * back; raising it eats the small serifs. 60 is measured, not guessed.
+ *
+ * Output is a tinted, trimmed RGBA PNG — a real mark asset, from the supplied
+ * artwork. CLAUDE.md forbids setting blackletter as live text, so this is the
+ * only honest way to get one until the client supplies a vector logo.
+ */
+async function extractMark(rawBuf) {
+  const { data, info } = await sharp(rawBuf)
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const { width, height, channels } = info;
+  const lum = (i) =>
+    0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+
+  const alpha = new Float32Array(width * height);
+  for (let p = 0; p < width * height; p++) {
+    const v = (MARK_THRESHOLD - lum(p * channels)) / MARK_SOFT;
+    alpha[p] = Math.max(0, Math.min(1, v));
+  }
+
+  // Flood-fill the solid core; keep only components big enough to be artwork.
+  const seen = new Uint8Array(width * height);
+  const keep = new Uint8Array(width * height);
+  const stack = [];
+  for (let s = 0; s < width * height; s++) {
+    if (seen[s] || alpha[s] < 0.5) continue;
+    stack.length = 0;
+    stack.push(s);
+    seen[s] = 1;
+    const comp = [];
+    while (stack.length) {
+      const p = stack.pop();
+      comp.push(p);
+      const x = p % width;
+      const y = (p - x) / width;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+        const np = ny * width + nx;
+        if (seen[np] || alpha[np] < 0.5) continue;
+        seen[np] = 1;
+        stack.push(np);
+      }
+    }
+    if (comp.length >= MARK_MIN_COMPONENT) for (const p of comp) keep[p] = 1;
+  }
+  for (let p = 0; p < width * height; p++) if (!keep[p]) alpha[p] = 0;
+
+  // Trim to the artwork so the asset carries no dead margin.
+  let x0 = width, x1 = 0, y0 = height, y1 = 0;
+  for (let p = 0; p < width * height; p++) {
+    if (alpha[p] <= 0.02) continue;
+    const x = p % width;
+    const y = (p - x) / width;
+    if (x < x0) x0 = x;
+    if (x > x1) x1 = x;
+    if (y < y0) y0 = y;
+    if (y > y1) y1 = y;
+  }
+
+  const rgba = Buffer.alloc(width * height * 4);
+  for (let p = 0; p < width * height; p++) {
+    rgba[p * 4] = MARK_TINT.r;
+    rgba[p * 4 + 1] = MARK_TINT.g;
+    rgba[p * 4 + 2] = MARK_TINT.b;
+    rgba[p * 4 + 3] = Math.round(alpha[p] * 255);
+  }
+  return sharp(rgba, { raw: { width, height, channels: 4 } }).extract({
+    left: x0,
+    top: y0,
+    width: x1 - x0 + 1,
+    height: y1 - y0 + 1,
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Grade + duotone
 // ---------------------------------------------------------------------------
 
@@ -423,40 +548,86 @@ async function allOutputsPresent(entry) {
   return paths.length > 0;
 }
 
-async function processOne(file, opts, manifest) {
-  const rawPath = path.join(RAW_DIR, file);
+async function processOne(baseName, opts, manifest) {
+  const rawFile = opts.raw;
+  const rawPath = path.join(RAW_DIR, rawFile);
   const rawBuf = await readFile(rawPath);
   const hash = sha256(rawBuf);
-  const baseName = path.basename(file, path.extname(file));
+  const cropKey = opts.crop ? JSON.stringify(opts.crop) : null;
 
-  const prior = manifest.entries[file];
+  const prior = manifest.entries[baseName];
   if (
     prior &&
     prior.rawHash === hash &&
     prior.pipelineVersion === PIPELINE_VERSION &&
+    (prior.crop ? JSON.stringify(prior.crop) : null) === cropKey &&
     (await allOutputsPresent(prior))
   ) {
-    console.log(`  = ${file} (up to date)`);
+    console.log(`  = ${baseName} (up to date)`);
     return prior;
   }
 
-  const meta = await sharp(rawBuf).metadata();
+  const rawMeta = await sharp(rawBuf).metadata();
+
+  // The logo mark takes its own path: keyed, tinted and trimmed, never
+  // upscaled or graded, and emitted with alpha (so PNG/WebP, never JPEG).
+  if (opts.mark) {
+    const mark = await extractMark(rawBuf);
+    const markMeta = await mark.clone().png().toBuffer({ resolveWithObject: true });
+    await writeFile(path.join(OUT_DIR, `${baseName}.png`), markMeta.data);
+    const webpBuf = await mark.clone().webp({ quality: 92, alphaQuality: 100 }).toBuffer();
+    await writeFile(path.join(OUT_DIR, `${baseName}.webp`), webpBuf);
+
+    console.log(
+      `  ◆ ${baseName}  keyed from ${rawFile} → ${markMeta.info.width}x${markMeta.info.height} (alpha)`,
+    );
+    const entry = {
+      raw: `assets-raw/${rawFile}`,
+      rawHash: hash,
+      pipelineVersion: PIPELINE_VERSION,
+      source: { width: rawMeta.width, height: rawMeta.height },
+      output: { width: markMeta.info.width, height: markMeta.info.height },
+      upscaled: false,
+      upscaleMethod: "none",
+      mark: true,
+      food: false,
+      graded: false,
+      outputs: {
+        png: `/images/${baseName}.png`,
+        webp: `/images/${baseName}.webp`,
+      },
+    };
+    manifest.entries[baseName] = entry;
+    return entry;
+  }
+
+  // Crop the raw first, so the upscaler works on the panel we actually publish
+  // rather than on the whole contact sheet.
+  let upscaleInput = rawPath;
+  if (opts.crop) {
+    await mkdir(CACHE_DIR, { recursive: true });
+    upscaleInput = path.join(CACHE_DIR, `${baseName}.crop.png`);
+    await sharp(rawBuf).extract(opts.crop).png().toFile(upscaleInput);
+  }
+
+  const meta = await sharp(upscaleInput).metadata();
   const longEdge = Math.max(meta.width, meta.height);
   const grade = opts.grade !== false;
 
-  // Source for grading — upscaled intermediate or the raw buffer.
-  let workingInput = rawPath;
+  // Source for grading — upscaled intermediate, or the (possibly cropped) input.
+  let workingInput = upscaleInput;
   let upscaled = false;
   let method = "none";
   if (longEdge < UPSCALE_THRESHOLD) {
     const scale = Math.min(4, Math.max(2, Math.ceil(MAX_LONG_EDGE / longEdge)));
-    const up = await upscale(rawPath, scale, baseName);
+    const up = await upscale(upscaleInput, scale, baseName);
     workingInput = up.path;
     upscaled = true;
     method = up.method;
-    console.log(`  ↑ ${file}  ${longEdge}px → ${scale}x (${method})`);
+    const from = opts.crop ? `${rawFile} crop ${longEdge}px` : `${longEdge}px`;
+    console.log(`  ↑ ${baseName}  ${from} → ${scale}x (${method})`);
   } else {
-    console.log(`  · ${file}  ${longEdge}px (no upscale needed)`);
+    console.log(`  · ${baseName}  ${longEdge}px (no upscale needed)`);
   }
 
   // Base pipeline: cap at MAX_LONG_EDGE, never enlarge past source here.
@@ -486,10 +657,12 @@ async function processOne(file, opts, manifest) {
 
   const finalMeta = await sharp(await base().toBuffer()).metadata();
   const entry = {
-    raw: `assets-raw/${file}`,
+    raw: `assets-raw/${rawFile}`,
     rawHash: hash,
     pipelineVersion: PIPELINE_VERSION,
-    source: { width: meta.width, height: meta.height },
+    ...(opts.crop ? { crop: opts.crop } : {}),
+    source: { width: rawMeta.width, height: rawMeta.height },
+    ...(opts.crop ? { cropped: { width: meta.width, height: meta.height } } : {}),
     output: { width: finalMeta.width, height: finalMeta.height },
     upscaled,
     upscaleMethod: method,
@@ -498,7 +671,7 @@ async function processOne(file, opts, manifest) {
     outputs,
     ...(duotone ? { duotone } : {}),
   };
-  manifest.entries[file] = entry;
+  manifest.entries[baseName] = entry;
   return entry;
 }
 
@@ -507,17 +680,25 @@ async function main() {
   await mkdir(OUT_DIR, { recursive: true });
 
   const manifest = await loadManifest();
-  const files = Object.keys(SOURCES);
+
+  // Drop entries for outputs that are no longer declared (e.g. a source that
+  // has been replaced by crops), so the manifest can't outlive its files.
+  for (const key of Object.keys(manifest.entries)) {
+    if (!(key in SOURCES)) {
+      console.log(`  − ${key} (no longer a source; dropping from manifest)`);
+      delete manifest.entries[key];
+    }
+  }
 
   let processed = 0;
   let skipped = 0;
-  for (const file of files) {
-    if (!existsSync(path.join(RAW_DIR, file))) {
-      console.warn(`  ! missing: ${file}`);
+  for (const [baseName, opts] of Object.entries(SOURCES)) {
+    if (!existsSync(path.join(RAW_DIR, opts.raw))) {
+      console.warn(`  ! missing: ${opts.raw}`);
       continue;
     }
-    const before = JSON.stringify(manifest.entries[file] ?? null);
-    const entry = await processOne(file, SOURCES[file], manifest);
+    const before = JSON.stringify(manifest.entries[baseName] ?? null);
+    const entry = await processOne(baseName, opts, manifest);
     if (JSON.stringify(entry) === before) skipped++;
     else processed++;
   }

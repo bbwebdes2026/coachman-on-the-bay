@@ -44,6 +44,42 @@
 }
 
 /*
+ * Day-to-night narrative (see components/DayToNight.tsx).
+ *
+ * Baseline — no JS, pre-hydration, or reduced motion: every section paints its
+ * own end-state colours from `data-tone`, so the page is always correct and
+ * readable on its own.
+ */
+[data-tone="day"] {
+  background-color: theme("colors.coast-50");
+  color: theme("colors.midnight");
+}
+
+[data-tone="night"] {
+  background-color: theme("colors.midnight");
+  color: theme("colors.silver-100");
+}
+
+/*
+ * Enhanced — DayToNight has mounted and owns the colour. Sections go
+ * transparent and the scrubbed custom properties on <body> show through.
+ */
+html.dn-active body {
+  background-color: var(--dn-bg);
+  color: var(--dn-fg);
+}
+
+html.dn-active [data-tone] {
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Amber accents fade up as night falls; 1 when the timeline isn't running. */
+.dn-amber {
+  opacity: var(--dn-accent, 1);
+}
+
+/*
  * Motion guard: when the user prefers reduced motion, neutralise all
  * transitions/animations. Lenis inertia is disabled separately in JS.
  */
