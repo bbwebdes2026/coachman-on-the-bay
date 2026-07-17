@@ -1,0 +1,259 @@
+{
+  "generatedAt": "2026-07-17T09:41:46.328Z",
+  "entries": {
+    "seating-area3.jpg": {
+      "raw": "assets-raw/seating-area3.jpg",
+      "rawHash": "5ef00de564daf4b62ddfed08ee89f9c829910da320a375fcf16f6df36381cb4d",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 800,
+        "height": 531
+      },
+      "output": {
+        "width": 2400,
+        "height": 1593
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/seating-area3.jpg",
+        "webp": "/images/seating-area3.webp",
+        "avif": "/images/seating-area3.avif"
+      }
+    },
+    "Seating-area1.jpg": {
+      "raw": "assets-raw/Seating-area1.jpg",
+      "rawHash": "86269894e5a63974be7d0d7e402d37a2983715020750b83b9a0a32fbfd66094e",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1400,
+        "height": 1093
+      },
+      "output": {
+        "width": 2400,
+        "height": 1874
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/Seating-area1.jpg",
+        "webp": "/images/Seating-area1.webp",
+        "avif": "/images/Seating-area1.avif"
+      },
+      "duotone": {
+        "jpg": "/images/Seating-area1-duo.jpg",
+        "webp": "/images/Seating-area1-duo.webp"
+      }
+    },
+    "seating-area2.jpg": {
+      "raw": "assets-raw/seating-area2.jpg",
+      "rawHash": "223020a4d0931dc5b15fd95bcbf6e8cf55cdca21658bf769f5fa51e03efbb4bd",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1400,
+        "height": 1093
+      },
+      "output": {
+        "width": 2400,
+        "height": 1874
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/seating-area2.jpg",
+        "webp": "/images/seating-area2.webp",
+        "avif": "/images/seating-area2.avif"
+      }
+    },
+    "bar-area.jpg": {
+      "raw": "assets-raw/bar-area.jpg",
+      "rawHash": "b34dfb1ef44cda775dcb2fcfdbb2ce3b80a53f8f8134ed0b1b4c23ab2a8ffa7e",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 500,
+        "height": 889
+      },
+      "output": {
+        "width": 1350,
+        "height": 2400
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/bar-area.jpg",
+        "webp": "/images/bar-area.webp",
+        "avif": "/images/bar-area.avif"
+      },
+      "duotone": {
+        "jpg": "/images/bar-area-duo.jpg",
+        "webp": "/images/bar-area-duo.webp"
+      }
+    },
+    "the-notorious-coachman-chair.jpg": {
+      "raw": "assets-raw/the-notorious-coachman-chair.jpg",
+      "rawHash": "86948c420b6ff75c1ce503c071d5753facab89fefb3534215095d69d5c46fe37",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 525,
+        "height": 450
+      },
+      "output": {
+        "width": 2100,
+        "height": 1800
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/the-notorious-coachman-chair.jpg",
+        "webp": "/images/the-notorious-coachman-chair.webp",
+        "avif": "/images/the-notorious-coachman-chair.avif"
+      }
+    },
+    "food-image1.jpg": {
+      "raw": "assets-raw/food-image1.jpg",
+      "rawHash": "acf9d377ddefe22b37b456656375462ad0d317541ebc910be93ac825519e2c47",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1080,
+        "height": 729
+      },
+      "output": {
+        "width": 2400,
+        "height": 1620
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": true,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/food-image1.jpg",
+        "webp": "/images/food-image1.webp",
+        "avif": "/images/food-image1.avif"
+      }
+    },
+    "food-image2.jpg": {
+      "raw": "assets-raw/food-image2.jpg",
+      "rawHash": "a1e7a4d9e2d485e05d414b00f9165cc68de45150026c1c4a6a19470337851596",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1080,
+        "height": 1080
+      },
+      "output": {
+        "width": 2400,
+        "height": 2400
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": true,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/food-image2.jpg",
+        "webp": "/images/food-image2.webp",
+        "avif": "/images/food-image2.avif"
+      }
+    },
+    "food-image3.jpg": {
+      "raw": "assets-raw/food-image3.jpg",
+      "rawHash": "0c401c2093365aef113483a11d4d630ec0a90825fa58f6536e2725cfb5013565",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1080,
+        "height": 1080
+      },
+      "output": {
+        "width": 2400,
+        "height": 2400
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": true,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/food-image3.jpg",
+        "webp": "/images/food-image3.webp",
+        "avif": "/images/food-image3.avif"
+      }
+    },
+    "food-image4.jpg": {
+      "raw": "assets-raw/food-image4.jpg",
+      "rawHash": "2e2d6b22d8fcba0745cd7f7059294e98e9baf62b7e090d552fb400eac76cfd89",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1080,
+        "height": 1080
+      },
+      "output": {
+        "width": 2400,
+        "height": 2400
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": true,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/food-image4.jpg",
+        "webp": "/images/food-image4.webp",
+        "avif": "/images/food-image4.avif"
+      }
+    },
+    "food-image5.jpg": {
+      "raw": "assets-raw/food-image5.jpg",
+      "rawHash": "1228883b6855706a88dfe5377381cb10c59cee91ab8bd42ecd6a8c4b3bbacf90",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1080,
+        "height": 1190
+      },
+      "output": {
+        "width": 2178,
+        "height": 2400
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": true,
+      "graded": true,
+      "outputs": {
+        "jpg": "/images/food-image5.jpg",
+        "webp": "/images/food-image5.webp",
+        "avif": "/images/food-image5.avif"
+      }
+    },
+    "coachman-logo.jpg": {
+      "raw": "assets-raw/coachman-logo.jpg",
+      "rawHash": "27901f71b1a5b79715910b2bcb86f3bc6dba1ba4a2d7fa36e16e8aecee7fd24c",
+      "pipelineVersion": 4,
+      "source": {
+        "width": 1069,
+        "height": 1064
+      },
+      "output": {
+        "width": 2400,
+        "height": 2389
+      },
+      "upscaled": true,
+      "upscaleMethod": "realesrgan(t=448,g=1)",
+      "food": false,
+      "graded": false,
+      "outputs": {
+        "jpg": "/images/coachman-logo.jpg",
+        "webp": "/images/coachman-logo.webp",
+        "avif": "/images/coachman-logo.avif"
+      }
+    }
+  },
+  "tokens": {
+    "shadow": "#0A1220",
+    "highlight": "#E6EAEF"
+  }
+}
