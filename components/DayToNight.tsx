@@ -92,19 +92,20 @@ export default function DayToNight({ children }: { children: ReactNode }) {
     // already falling as the last of the heritage copy leaves rather than waiting
     // for an empty screen to begin.
     //
-    // The lead is budgeted, not eyeballed. The heritage copy is midnight ink on
-    // the daylight ground, so every step the ground darkens under it costs
-    // contrast: measured against these STOPS it holds 5.95:1 at progress 0.30 and
-    // breaks the 4.5:1 AA floor by 0.40. Starting at `top 15%` (band top 15% down
-    // the viewport) puts progress at ~0.27 — about 6.4:1 — at the instant the
-    // paragraph clears the top edge, which is the worst moment. Earlier than this
-    // and the text is dimming while you are still reading it. That is the whole
-    // constraint: the copy must never be the thing that fades.
+    // The lead is budgeted, not eyeballed, and this is the end of the budget.
+    // The heritage copy is midnight ink on the daylight ground, so every step the
+    // ground darkens under it costs contrast: measured against these STOPS it
+    // holds 5.97:1 at progress 0.30 and breaks the 4.5:1 AA floor by 0.40.
+    // `top 17%` (band top 17% down the viewport) puts progress at 0.298 at the
+    // instant the paragraph clears the top edge — the worst moment — which spends
+    // the margin down to the floor and no further. Do not start this earlier
+    // without moving the dusk stop lighter first: the two numbers are linked, and
+    // the copy must never be the thing that fades.
     const band = el.querySelector<HTMLElement>("[data-dn-band]") ?? el;
 
     const st = ScrollTrigger.create({
       trigger: band,
-      start: "top 15%",
+      start: "top 17%",
       end: "bottom 30%",
       scrub: 0.5,
       onUpdate: (self) => apply(self.progress),
