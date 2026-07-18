@@ -1,0 +1,13 @@
+[
+  {
+    "src": "/_next/image?url=%2Fimages%2Fcoachman-mark.png&w=1920&q=75",
+    "currentSrc": "http://localhost:3100/_next/image?url=%2Fimages%2Fcoachman-mark.png&w=1080&q=75",
+    "loading": null,
+    "fetchpriority": "high",
+    "decoding": "async",
+    "hasSrcset": true,
+    "alt": "The Coachman horse-and-carriage mark",
+    "width": "955",
+    "height": "563"
+  }
+]

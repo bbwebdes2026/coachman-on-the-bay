@@ -1,0 +1,20 @@
+{
+  "title": "Menu · The Coachman",
+  "description": "The full Coachman menu — starters, seafood, the charcoal grill, South African traditional dishes, burgers, desserts, the wine cellar and the bar. All prices in Rand, inclusive of VAT.",
+  "canonical": null,
+  "og": {
+    "title": "The Coachman — Fine dining on the bay",
+    "description": "A fine-dining steakhouse and seafood institution on the beachfront in Gqeberha, South Africa.",
+    "image": null,
+    "url": null,
+    "type": "website",
+    "siteName": null
+  },
+  "twitter": {
+    "card": "summary",
+    "title": "The Coachman — Fine dining on the bay",
+    "image": null
+  },
+  "jsonld": [],
+  "jsonldValid": []
+}

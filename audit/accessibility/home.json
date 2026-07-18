@@ -1,0 +1,512 @@
+{
+  "url": "/",
+  "violations": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-prohibited-attr?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "nodes": [
+        {
+          "target": [
+            "span[aria-label=\"The Coachman\"]"
+          ],
+          "html": "<span aria-label=\"The Coachman\">",
+          "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+      "tags": [
+        "cat.color",
+        "wcag2aa",
+        "wcag143",
+        "TTv5",
+        "TT13.c",
+        "EN-301-549",
+        "EN-9.1.4.3",
+        "ACT",
+        "RGAAv4",
+        "RGAA-3.2.1"
+      ],
+      "nodes": [
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(1)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">The<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(2)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">Coachman<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(3)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">has<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(4)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">kept<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(5)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">its<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(6)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">table<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(7)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">on<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(8)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">the<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(9)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">Gqeberha<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(10)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">beachfront<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(11)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">long<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(12)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">enough<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(13)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">that<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(14)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">the<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(15)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">bay<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(16)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">reads<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(17)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">as<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(18)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">part<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(19)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">of<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(20)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">the<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(21)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">room.<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(23)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">charcoal<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(24)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">grill<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(25)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">at<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(26)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">its<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(27)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">heart,<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(28)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">seafood<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(29)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">off<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(30)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">the<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(31)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">same<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(32)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">coast<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(33)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">you<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(34)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">are<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(35)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">looking<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(36)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">at,<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(37)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">and<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(39)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">cellar<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(40)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">deep<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(41)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">enough<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(42)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">to<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(43)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">keep<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(44)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">you<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(45)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">seated<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(46)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">well<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(47)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">past<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(48)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">the<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".inline-block.whitespace-pre[data-word=\"true\"]:nth-child(49)"
+          ],
+          "html": "<span data-word=\"true\" class=\"inline-block whitespace-pre\" style=\"filter: blur(5px); opacity: 0.18;\">plates.<!-- --> </span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.47 (foreground color: #caced2, background color: #f4f7f9, font size: 30.0pt (40px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "figcaption"
+          ],
+          "html": "<figcaption class=\"mt-4 font-sans text-xs uppercase tracking-[0.2em] opacity-50\">The dining room</figcaption>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.45 (foreground color: #7f858d, background color: #f4f7f9, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".lg\\:text-3xl"
+          ],
+          "html": "<h2 class=\"font-display text-2xl font-medium leading-tight lg:text-3xl\">The room turns navy after dark</h2>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 48.0pt (64px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".max-w-\\[52ch\\] > p:nth-child(1)"
+          ],
+          "html": "<p>Electric-blue coves trace the ceiling and warm amber downlights sit above each table like starlight — the reason the room reads deep navy long after the terrace has gone gold.</p>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.09 (foreground color: #e9edf1, background color: #f4f7f9, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".max-w-\\[52ch\\] > p:nth-child(2)"
+          ],
+          "html": "<p>At the centre of it is the charcoal grill: fillet, rump and sirloin in 200g and 300g, the T-bone on the bone, and a 1&nbsp;kg prime cut for the table that came hungry.</p>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.09 (foreground color: #e9edf1, background color: #f4f7f9, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".text-cove"
+          ],
+          "html": "<p class=\"font-sans text-xs uppercase tracking-[0.3em] text-cove\">The Menu</p>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.12 (foreground color: #2e8bff, background color: #f4f7f9, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".underline"
+          ],
+          "html": "<a class=\"font-sans text-sm text-silver-100 underline decoration-silver-400/40 underline-offset-4 transition-colors hover:text-cove hover:decoration-cove\" href=\"/menu\">View the full menu</a>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#starters\"] > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">Starters</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#starters\"] > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#seafood\"] > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">Seafood</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#seafood\"] > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#charcoal-grill\"] > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">Charcoal Grill</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#charcoal-grill\"] > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".border-t.border-silver-400\\/15.last\\:border-b:nth-child(4) > .z-10.gap-4.py-7 > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">South African Traditional</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            ".border-t.border-silver-400\\/15.last\\:border-b:nth-child(4) > .z-10.gap-4.py-7 > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#burgers\"] > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">Coachman's Burgers</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#burgers\"] > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#wine-cellar\"] > .leading-none.text-silver-100.text-3xl"
+          ],
+          "html": "<span class=\"font-display text-3xl font-medium leading-none text-silver-100 sm:text-5xl\">Wine Cellar</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.12 (foreground color: #e6eaef, background color: #f4f7f9, font size: 36.0pt (48px), font weight: normal). Expected contrast ratio of 3:1"
+        },
+        {
+          "target": [
+            "a[href$=\"menu#wine-cellar\"] > .text-\\[0\\.7rem\\].tracking-\\[0\\.25em\\].text-silver-400"
+          ],
+          "html": "<span aria-hidden=\"true\" class=\"font-sans text-[0.7rem] uppercase tracking-[0.25em] text-silver-400\">View</span>",
+          "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #9aa3ae, background color: #f4f7f9, font size: 8.4pt (11.2px), font weight: normal). Expected contrast ratio of 4.5:1"
+        }
+      ]
+    }
+  ],
+  "passesCount": 33,
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 7
+    }
+  ]
+}

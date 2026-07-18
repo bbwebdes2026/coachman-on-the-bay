@@ -38,16 +38,18 @@ Status meanings: **done** = built and self-QA passed; **reviewed** = owner appro
 
 ## Quality gates (latest run)
 
+Mobile Lighthouse 13.4.0 against the production build. Full detail in QUALITY_AUDIT.md.
+
 | Gate | Result | Date |
 |---|---|---|
-| Lighthouse — Performance | not run | — |
-| Lighthouse — Accessibility | not run | — |
-| Lighthouse — Best Practices | not run | — |
-| Lighthouse — SEO | not run | — |
-| WCAG AA contrast (all pages) | not run — day-to-night transition budgeted to the AA floor during build (progress 0.30 → 5.97:1); no full-page audit yet | — |
-| Responsive 360 / 768 / 1440 | not run | — |
-| Images WebP/AVIF + lazy | partial — pipeline emits graded JPEG + AVIF/WebP variants; per-component `next/image` audit pending | — |
-| JSON-LD + OpenGraph valid | not run — not yet implemented | — |
+| Lighthouse — Performance | home **87** ❌ (LCP 3.7 s) · menu 92 ✅ | 2026-07-18 |
+| Lighthouse — Accessibility | home 91 ✅ · menu 96 ✅ | 2026-07-18 |
+| Lighthouse — Best Practices | home 96 · menu 96 (favicon 404 in console) | 2026-07-18 |
+| Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-18 |
+| WCAG AA contrast (all pages) | fail — home: 65 Scroll-Reveal words dim at scroll-top (transient; motion-off OK) + hero `aria-label`; menu: `tel:` link not underlined | 2026-07-18 |
+| Responsive 360 / 768 / 1440 | pass — CLS 0, no horizontal overflow either page | 2026-07-18 |
+| Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
+| JSON-LD + OpenGraph valid | fail — no JSON-LD anywhere; OG missing image/url/site_name; no favicon | 2026-07-18 |
 
 ## In progress
 
@@ -60,6 +62,7 @@ sanctioned teal usages).
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-18 — Ran initial quality audit (Lighthouse/axe/Playwright) → QUALITY_AUDIT.md; artifacts in /audit. Cross-cutting gaps: JSON-LD, OG image, favicon.
 2026-07-18 — Added PROJECT_STATUS.md as the running status ledger.
 2026-07-17 — Dusk transition band filled with a scroll-resolved starfield quoting the venue's LED ceiling (self-lit, carries no contrast obligation).
 2026-07-17 — Day-to-night transition starts at `top 17%` / progress spent to the AA contrast floor (5.97:1); copy never fades below AA.

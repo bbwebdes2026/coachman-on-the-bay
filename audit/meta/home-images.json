@@ -1,0 +1,46 @@
+[
+  {
+    "src": "/_next/image?url=%2Fimages%2Fterrace-bay.jpg&w=3840&q=75",
+    "currentSrc": "http://localhost:3100/_next/image?url=%2Fimages%2Fterrace-bay.jpg&w=1920&q=75",
+    "loading": null,
+    "fetchpriority": "high",
+    "decoding": "async",
+    "hasSrcset": true,
+    "alt": "Terrace tables dressed in navy linen beneath a white umbrella, the bay stretching out beyond the railing in full daylight.",
+    "width": null,
+    "height": null
+  },
+  {
+    "src": "/_next/image?url=%2Fimages%2Fcoachman-mark.png&w=3840&q=75",
+    "currentSrc": "http://localhost:3100/_next/image?url=%2Fimages%2Fcoachman-mark.png&w=256&q=75",
+    "loading": null,
+    "fetchpriority": "high",
+    "decoding": "async",
+    "hasSrcset": true,
+    "alt": "The Coachman Restaurant",
+    "width": "955",
+    "height": "563"
+  },
+  {
+    "src": "/_next/image?url=%2Fimages%2FSeating-area1-duo.jpg&w=3840&q=75",
+    "currentSrc": "http://localhost:3100/_next/image?url=%2Fimages%2FSeating-area1-duo.jpg&w=640&q=75",
+    "loading": "lazy",
+    "fetchpriority": null,
+    "decoding": "async",
+    "hasSrcset": true,
+    "alt": "The dining room rendered in navy and silver: tables set beneath the long curve of the ceiling coves.",
+    "width": "2400",
+    "height": "1874"
+  },
+  {
+    "src": "/_next/image?url=%2Fimages%2Fseating-area2.jpg&w=3840&q=75",
+    "currentSrc": "http://localhost:3100/_next/image?url=%2Fimages%2Fseating-area2.jpg&w=1200&q=75",
+    "loading": "lazy",
+    "fetchpriority": null,
+    "decoding": "async",
+    "hasSrcset": true,
+    "alt": "The bar at night, the brushed-metal Coachman lockup lit on the wall above tables set with navy linen.",
+    "width": "2400",
+    "height": "1874"
+  }
+]
