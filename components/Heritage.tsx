@@ -5,10 +5,8 @@ import ScrollReveal from "./ScrollReveal";
  * Section 2 — the heritage strip. Opens in daylight (`data-tone="day"`) and is
  * where the day-to-night interpolation begins; by the dining room it is night.
  *
- * The copy is deliberately unspecific about dates. The restaurant is a
- * long-standing institution, but nothing in the supplied assets states the year
- * it opened, and CLAUDE.md permits real content only — so this says what is
- * true rather than inventing a founding date. Ask the client for the year.
+ * The founding year (1978, owner-confirmed) is worked into the copy as a genuine
+ * heritage asset — stated once, plainly, then the room does the rest.
  */
 export default function Heritage() {
   return (
@@ -21,7 +19,7 @@ export default function Heritage() {
 
           <ScrollReveal
             className="mt-6 max-w-[46ch] font-display text-xl leading-[1.35] sm:text-2xl"
-            text="The Coachman has kept its table on the Gqeberha beachfront long enough that the bay reads as part of the room. A charcoal grill at its heart, seafood off the same coast you are looking at, and a cellar deep enough to keep you seated well past the plates."
+            text="The Coachman has kept its table on the Gqeberha beachfront since 1978 — long enough that the bay reads as part of the room. A charcoal grill at its heart, seafood off the same coast you are looking at, and a cellar deep enough to keep you seated well past the plates."
           />
         </div>
 

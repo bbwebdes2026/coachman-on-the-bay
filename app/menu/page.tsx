@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import MenuCategoryBlock from "@/components/MenuList";
+import JsonLd from "@/components/JsonLd";
+import { menuJsonLd } from "@/data/restaurant";
 import {
   CONTACT,
   HOUSE_EPIGRAPH,
@@ -39,6 +41,9 @@ function wineCellarSections(category: MenuCategory): MenuSection[] {
 export default function MenuPage() {
   return (
     <main className="min-h-screen bg-midnight text-silver-100">
+      {/* Menu structured data (the Restaurant node comes from the root layout). */}
+      <JsonLd data={menuJsonLd} />
+
       <header className="px-6 pb-8 pt-12 sm:px-10 sm:pt-16">
         <div className="mx-auto max-w-4xl">
           <Link

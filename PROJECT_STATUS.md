@@ -50,7 +50,7 @@ detail (incl. original baseline) in QUALITY_AUDIT.md.
 | WCAG AA contrast (all pages) | mostly pass — hero `aria-label` & menu `tel:` link fixed; remaining: 65 Scroll-Reveal words dim mid-animation at scroll-top (transient; motion-off renders full-contrast) | 2026-07-18 |
 | Responsive 360 / 768 / 1440 | pass — CLS 0, no horizontal overflow either page | 2026-07-18 |
 | Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
-| JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD + full OG/Twitter/canonical + favicon; `openingHoursSpecification` TODO (owner hours) | 2026-07-18 |
+| JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD (foundingDate, full address, openingHoursSpecification) + `Menu` node on /menu + full OG/Twitter/canonical + favicon | 2026-07-18 |
 
 ## In progress
 
@@ -63,6 +63,7 @@ sanctioned teal usages).
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-18 — Owner-confirmed content facts applied: founded 1978 (Heritage copy), address Brookes on the Bay/Summerstrand/Gqeberha 6001, hours Mon–Sat 11:30–22:00 / Sun 11:30–21:00. JSON-LD refactored to a typed module (`data/restaurant.ts`) + `<JsonLd>`; `Restaurant` node site-wide, `Menu` node on /menu.
 2026-07-18 — Applied audit quick wins 1–5: favicon (`app/icon.png`/`apple-icon.png`), full OG + `og-image.jpg` social card, `Restaurant` JSON-LD, menu `tel:` underline, hero `aria-label`→`<h1>`. Best Practices→100 both; A11y home 91→95, menu 96→100; console 404 cleared. `openingHoursSpecification` still owed by owner.
 2026-07-18 — Ran initial quality audit (Lighthouse/axe/Playwright) → QUALITY_AUDIT.md; artifacts in /audit. Cross-cutting gaps: JSON-LD, OG image, favicon.
 2026-07-18 — Added PROJECT_STATUS.md as the running status ledger.
@@ -74,12 +75,15 @@ sanctioned teal usages).
 
 ## Blockers / needs owner input
 
+**Remaining owner blockers — only these two:**
 - **Real vector logo** — current `coachman-mark.png` is keyed out of a beach marketing graphic; a workaround, not a final asset. Need the supplied SVG/vector mark.
-- **Founding year** — heritage copy is deliberately date-free; nothing in the assets states a founding year. Confirm the year (or confirm we stay date-free).
-- **3rd interior image** ("sticks out") — Gareth flagged `seating-area2` reads inconsistently against the graded set; decide whether to duotone/regrade or drop it.
 - **Deploy target** — Vercel project not yet created/connected; domain (`tcr.co.za`?) and hosting to confirm before launch.
-- **Trading hours** — needed to complete the `Restaurant` JSON-LD `openingHoursSpecification` (currently a marked TODO in `app/layout.tsx`).
-- **Social card** — `public/og-image.jpg` is a logo-on-midnight card; confirm whether to swap in a terrace/hero photo composition.
+
+**Resolved 2026-07-18 (owner-confirmed):** founding year **1978** (worked into the Heritage copy); street address **Brookes on the Bay, Summerstrand, Gqeberha 6001**; trading hours **Mon–Sat 11:30–22:00 / Sun 11:30–21:00**. All three are now in the `Restaurant` JSON-LD (`data/restaurant.ts`) and `CONTACT` (`data/menu.ts`) for the step-7 footer.
+
+**Open, non-blocking (design calls, no external input needed):**
+- 3rd interior image (`seating-area2`) reads inconsistently against the graded set — regrade/duotone or drop.
+- Social card `og-image.jpg` is a logo-on-midnight card — optionally swap for a terrace/hero composition.
 
 ## Next up
 

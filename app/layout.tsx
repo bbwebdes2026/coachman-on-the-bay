@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import JsonLd from "@/components/JsonLd";
+import { restaurantJsonLd } from "@/data/restaurant";
 import "./globals.css";
 
 // Display — headings, dish names, large numerals
@@ -57,31 +59,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Restaurant schema (schema.org), emitted site-wide from the root layout so every
-// page carries it. metadataBase makes the relative URLs below resolve to absolute.
-const restaurantJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  name: "The Coachman",
-  description:
-    "A fine-dining steakhouse and seafood institution on the beachfront in Gqeberha (Port Elizabeth), South Africa.",
-  image: "https://www.tcr.co.za/og-image.jpg",
-  url: "https://www.tcr.co.za",
-  telephone: "+27 41 584 0087",
-  servesCuisine: ["Steakhouse", "Seafood", "South African"],
-  priceRange: "$$$",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Gqeberha",
-    addressRegion: "Eastern Cape",
-    addressCountry: "ZA",
-  },
-  hasMenu: "https://www.tcr.co.za/menu",
-  sameAs: ["https://www.facebook.com/coachmanonthebay"],
-  // TODO(owner): add openingHoursSpecification once the trading hours are confirmed.
-  // e.g. { "@type": "OpeningHoursSpecification", dayOfWeek: [...], opens: "12:00", closes: "22:00" }
-};
-
 export const viewport: Viewport = {
   themeColor: "#0A1220",
   colorScheme: "dark",
@@ -98,10 +75,8 @@ export default function RootLayout({
       className={`${cormorant.variable} ${hanken.variable}`}
     >
       <body className="min-h-screen bg-midnight text-silver-100 font-sans">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
-        />
+        {/* Restaurant schema, site-wide. The Menu node is emitted on /menu. */}
+        <JsonLd data={restaurantJsonLd} />
         <SmoothScroll />
         {children}
       </body>

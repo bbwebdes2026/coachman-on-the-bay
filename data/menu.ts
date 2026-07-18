@@ -96,6 +96,20 @@ export const CONTACT = {
   phoneHref: "tel:+27415840087",
   website: "https://www.tcr.co.za",
   facebook: "https://www.facebook.com/coachmanonthebay",
+  /** Owner-confirmed 2026-07-18. Human-readable; the schema.org form is in data/restaurant.ts. */
+  address: {
+    line1: "Brookes on the Bay",
+    suburb: "Summerstrand",
+    city: "Gqeberha",
+    postalCode: "6001",
+    /** One-line form for the Visit/Reserve footer (built in step 7). */
+    oneLine: "Brookes on the Bay, Summerstrand, Gqeberha, 6001",
+  },
+  /** Trading hours, owner-confirmed 2026-07-18. For the Visit/Reserve footer. */
+  hours: [
+    { days: "Monday – Saturday", time: "11:30 – 22:00" },
+    { days: "Sunday", time: "11:30 – 21:00" },
+  ],
 } as const;
 
 // ---------------------------------------------------------------------------
