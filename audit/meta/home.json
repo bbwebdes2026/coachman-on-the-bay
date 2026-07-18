@@ -16,7 +16,7 @@
     "image": "https://www.tcr.co.za/og-image.jpg"
   },
   "jsonld": [
-    "{\"@context\":\"https://schema.org\",\"@type\":\"Restaurant\",\"name\":\"The Coachman\",\"description\":\"A fine-dining steakhouse and seafood institution on the beachfront in Gqeberha (Port Elizabeth), South Africa.\",\"image\":\"https://www.tcr.co.za/og-image.jpg\",\"url\":\"https://www.tcr.co.za\",\"telephone\":\"+27 41 584 0087\",\"servesCuisine\":[\"Steakhouse\",\"Seafood\",\"South African\"],\"priceRange\":\"$$$\",\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Gqeberha\",\"addressRegion\":\"Eastern Cape\",\"addressCountry\":\"ZA\"},\"hasMenu\":\"https://www.tcr.co.za/menu\",\"sameAs\":[\"https://www.facebook.com/coachmanonthebay\"]}"
+    "{\"@context\":\"https://schema.org\",\"@type\":\"Restaurant\",\"name\":\"The Coachman Restaurant\",\"image\":\"https://www.tcr.co.za/images/terrace-bay.jpg\",\"url\":\"https://www.tcr.co.za\",\"telephone\":\"+27415840087\",\"servesCuisine\":[\"Steakhouse\",\"Seafood\",\"South African\"],\"priceRange\":\"$$$\",\"foundingDate\":\"1978\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Brookes on the Bay\",\"addressLocality\":\"Summerstrand, Gqeberha\",\"addressRegion\":\"Eastern Cape\",\"postalCode\":\"6001\",\"addressCountry\":\"ZA\"},\"sameAs\":[\"https://www.facebook.com/coachmanonthebay\"],\"openingHoursSpecification\":[{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"11:30\",\"closes\":\"22:00\"},{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":\"Sunday\",\"opens\":\"11:30\",\"closes\":\"21:00\"}]}"
   ],
   "jsonldValid": [
     {

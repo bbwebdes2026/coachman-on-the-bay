@@ -6,10 +6,10 @@
         "serious": 1
       },
       "ids": [
-        "color-contrast(65)"
+        "color-contrast(69)"
       ],
       "incomplete": [
-        "color-contrast(7)"
+        "color-contrast(8)"
       ]
     },
     "meta": {
@@ -73,6 +73,10 @@
         {
           "ok": true,
           "type": "Restaurant"
+        },
+        {
+          "ok": true,
+          "type": "Menu"
         }
       ],
       "ogPresent": [

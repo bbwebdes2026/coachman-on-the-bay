@@ -61,6 +61,21 @@
 }
 
 /*
+ * Spotlight Card (react.bits, adapted) — SA Traditional Dishes (section 6a).
+ * A cove-blue radial glow that tracks the cursor via card-local --spot-x/--spot-y
+ * (set in components/SATraditional.tsx); it defaults to the card centre so keyboard
+ * focus lights it too. Decorative only — the span is not rendered under reduced
+ * motion, where the card falls back to a static cove border instead.
+ */
+.sa-card__spot {
+  background: radial-gradient(
+    340px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(46, 139, 255, 0.18),
+    transparent 68%
+  );
+}
+
+/*
  * Flowing Menu (react.bits, adapted) — the navigator's per-row hover strip.
  * The coloured panel slides in on the cursor's edge (GSAP, in the component);
  * this is only the continuous horizontal drift of the strip's contents. Two

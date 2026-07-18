@@ -4,6 +4,7 @@ import DiningRoom from "@/components/DiningRoom";
 import DayToNight from "@/components/DayToNight";
 import DuskStars from "@/components/DuskStars";
 import FlowingMenu from "@/components/FlowingMenu";
+import SATraditional from "@/components/SATraditional";
 
 export default function Home() {
   return (
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* Section 5 — the Flowing Menu navigator, on the settled midnight. */}
       <FlowingMenu />
+
+      {/* Section 6a — SA Traditional Spotlight Cards. */}
+      <SATraditional />
     </main>
   );
 }
