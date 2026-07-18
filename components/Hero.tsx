@@ -46,7 +46,15 @@ export default function Hero() {
       </header>
 
       <div className="px-6 pb-16 sm:px-10 sm:pb-20">
-        <h1 className="max-w-[14ch] font-display text-2xl font-medium leading-none text-silver-100 md:text-3xl lg:text-4xl">
+        {/*
+         * The accessible name lives on the heading itself; the Blur-Text pieces
+         * are decorative and aria-hidden, so a screen reader hears "The Coachman"
+         * once, from a real <h1>, rather than a stream of animated fragments.
+         */}
+        <h1
+          aria-label="The Coachman"
+          className="max-w-[14ch] font-display text-2xl font-medium leading-none text-silver-100 md:text-3xl lg:text-4xl"
+        >
           <BlurText text="The Coachman" />
         </h1>
 

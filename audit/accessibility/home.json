@@ -2,30 +2,6 @@
   "url": "/",
   "violations": [
     {
-      "id": "aria-prohibited-attr",
-      "impact": "serious",
-      "help": "Elements must only use permitted ARIA attributes",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-prohibited-attr?application=axeAPI",
-      "tags": [
-        "cat.aria",
-        "wcag2a",
-        "wcag412",
-        "EN-301-549",
-        "EN-9.4.1.2",
-        "RGAAv4",
-        "RGAA-7.1.1"
-      ],
-      "nodes": [
-        {
-          "target": [
-            "span[aria-label=\"The Coachman\"]"
-          ],
-          "html": "<span aria-label=\"The Coachman\">",
-          "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
-        }
-      ]
-    },
-    {
       "id": "color-contrast",
       "impact": "serious",
       "help": "Elements must meet minimum color contrast ratio thresholds",

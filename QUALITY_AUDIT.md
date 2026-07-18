@@ -1,5 +1,16 @@
 # QUALITY AUDIT — The Coachman on the Bay
 
+> **Update 2026-07-18 — quick wins 1–5 applied and re-verified.** The `/audit`
+> artifacts below were regenerated post-fix. Resolved: favicon 404 (console now clean,
+> Best Practices → **100** both pages), OpenGraph completed (`og:image`/`url`/`site_name`
+> /`twitter:image`/canonical), `Restaurant` JSON-LD added (`openingHoursSpecification`
+> still a TODO — owner hours owed), menu `tel:` link underlined (`link-in-text-block`
+> cleared, menu Accessibility → **100**), hero `aria-label` moved to `<h1>`
+> (`aria-prohibited-attr` cleared, home Accessibility 91 → **95**). **Still open:** home
+> Performance (85, first-load JS — step-8 debt) and the 65 transient Scroll-Reveal
+> contrast flags (documented below as a scroll artifact, not a motion-off failure). The
+> tables that follow record the original baseline.
+>
 > Automated audit run 2026-07-18. Tools: Lighthouse 13.4.0 (mobile emulation),
 > axe-core 4.x, Playwright 1.61 (Chromium 1228). Target: production build
 > (`next build` + `next start`) on `http://localhost:3100`.

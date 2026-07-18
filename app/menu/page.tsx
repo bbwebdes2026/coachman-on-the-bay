@@ -106,7 +106,10 @@ export default function MenuPage() {
           <p className="max-w-[62ch] pt-4 italic">{HOUSE_EPIGRAPH}</p>
           <p className="pt-4">
             To reserve a table, call{" "}
-            <a href={CONTACT.phoneHref} className="text-cove hover:underline">
+            <a
+              href={CONTACT.phoneHref}
+              className="text-cove underline decoration-cove/50 underline-offset-2 transition-colors hover:decoration-cove"
+            >
               {CONTACT.phone}
             </a>
             .

@@ -1,12 +1,11 @@
 {
   "home": {
     "axe": {
-      "violations": 2,
+      "violations": 1,
       "byImpact": {
-        "serious": 2
+        "serious": 1
       },
       "ids": [
-        "aria-prohibited-attr(1)",
         "color-contrast(65)"
       ],
       "incomplete": [
@@ -14,21 +13,26 @@
       ]
     },
     "meta": {
-      "hasJsonLd": false,
-      "jsonldTypes": [],
+      "hasJsonLd": true,
+      "jsonldTypes": [
+        {
+          "ok": true,
+          "type": "Restaurant"
+        }
+      ],
       "ogPresent": [
         "title",
         "description",
-        "type"
-      ],
-      "ogMissing": [
         "image",
         "url",
+        "type",
         "siteName"
       ],
+      "ogMissing": [],
       "twitterPresent": [
         "card",
-        "title"
+        "title",
+        "image"
       ],
       "description": "The Coachman Restaurant — a fine-dining steakhouse and seafood institution on the beachfront in Gqeberha (Port Elizabeth), South Africa."
     },
@@ -56,33 +60,34 @@
   },
   "menu": {
     "axe": {
-      "violations": 1,
-      "byImpact": {
-        "serious": 1
-      },
-      "ids": [
-        "link-in-text-block(1)"
-      ],
+      "violations": 0,
+      "byImpact": {},
+      "ids": [],
       "incomplete": [
         "color-contrast(10)"
       ]
     },
     "meta": {
-      "hasJsonLd": false,
-      "jsonldTypes": [],
+      "hasJsonLd": true,
+      "jsonldTypes": [
+        {
+          "ok": true,
+          "type": "Restaurant"
+        }
+      ],
       "ogPresent": [
         "title",
         "description",
-        "type"
-      ],
-      "ogMissing": [
         "image",
         "url",
+        "type",
         "siteName"
       ],
+      "ogMissing": [],
       "twitterPresent": [
         "card",
-        "title"
+        "title",
+        "image"
       ],
       "description": "The full Coachman menu — starters, seafood, the charcoal grill, South African traditional dishes, burgers, desserts, the wine cellar and the bar. All prices in Rand, inclusive of VAT."
     },

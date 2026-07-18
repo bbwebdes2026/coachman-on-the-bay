@@ -1,7 +1,7 @@
 # PROJECT STATUS — The Coachman on the Bay
 
 > Maintained by Claude Code. Updated at the end of every working block.
-> Last updated: 2026-07-18 (session 6)
+> Last updated: 2026-07-18 (session 6 — audit + quick-win fixes)
 
 ## Current state (one paragraph)
 
@@ -32,24 +32,25 @@ Gallery, Visit/Reserve) are not yet built.
 | Gallery | not started | Step 7 — masonry food photography + Gradual Blur edges |
 | Contact / Booking / Map | not started | Step 7 — Visit/Reserve: address, hours, click-to-call, map, amber CTA |
 | Footer + global nav | in progress | `/menu` footer done (VAT + service-charge + phone); homepage footer + global nav not built |
-| SEO / schema / OpenGraph | in progress | Per-page `metadata` set; JSON-LD (Restaurant schema) and OpenGraph images not yet added |
+| SEO / schema / OpenGraph | done | `Restaurant` JSON-LD + full OpenGraph/Twitter/canonical + favicon (`app/icon.png`) shipped; `openingHoursSpecification` TODO pending owner hours |
 
 Status meanings: **done** = built and self-QA passed; **reviewed** = owner approved at checkpoint.
 
 ## Quality gates (latest run)
 
-Mobile Lighthouse 13.4.0 against the production build. Full detail in QUALITY_AUDIT.md.
+Mobile Lighthouse 13.4.0 against the production build, **post quick-win fixes**. Full
+detail (incl. original baseline) in QUALITY_AUDIT.md.
 
 | Gate | Result | Date |
 |---|---|---|
-| Lighthouse — Performance | home **87** ❌ (LCP 3.7 s) · menu 92 ✅ | 2026-07-18 |
-| Lighthouse — Accessibility | home 91 ✅ · menu 96 ✅ | 2026-07-18 |
-| Lighthouse — Best Practices | home 96 · menu 96 (favicon 404 in console) | 2026-07-18 |
+| Lighthouse — Performance | home **85** ❌ (first-load JS / LCP — step-8 debt) · menu 90 ✅ | 2026-07-18 |
+| Lighthouse — Accessibility | home 95 ✅ · menu 100 ✅ | 2026-07-18 |
+| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ (favicon added, console clean) | 2026-07-18 |
 | Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-18 |
-| WCAG AA contrast (all pages) | fail — home: 65 Scroll-Reveal words dim at scroll-top (transient; motion-off OK) + hero `aria-label`; menu: `tel:` link not underlined | 2026-07-18 |
+| WCAG AA contrast (all pages) | mostly pass — hero `aria-label` & menu `tel:` link fixed; remaining: 65 Scroll-Reveal words dim mid-animation at scroll-top (transient; motion-off renders full-contrast) | 2026-07-18 |
 | Responsive 360 / 768 / 1440 | pass — CLS 0, no horizontal overflow either page | 2026-07-18 |
 | Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
-| JSON-LD + OpenGraph valid | fail — no JSON-LD anywhere; OG missing image/url/site_name; no favicon | 2026-07-18 |
+| JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD + full OG/Twitter/canonical + favicon; `openingHoursSpecification` TODO (owner hours) | 2026-07-18 |
 
 ## In progress
 
@@ -62,6 +63,7 @@ sanctioned teal usages).
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-18 — Applied audit quick wins 1–5: favicon (`app/icon.png`/`apple-icon.png`), full OG + `og-image.jpg` social card, `Restaurant` JSON-LD, menu `tel:` underline, hero `aria-label`→`<h1>`. Best Practices→100 both; A11y home 91→95, menu 96→100; console 404 cleared. `openingHoursSpecification` still owed by owner.
 2026-07-18 — Ran initial quality audit (Lighthouse/axe/Playwright) → QUALITY_AUDIT.md; artifacts in /audit. Cross-cutting gaps: JSON-LD, OG image, favicon.
 2026-07-18 — Added PROJECT_STATUS.md as the running status ledger.
 2026-07-17 — Dusk transition band filled with a scroll-resolved starfield quoting the venue's LED ceiling (self-lit, carries no contrast obligation).
@@ -76,6 +78,8 @@ sanctioned teal usages).
 - **Founding year** — heritage copy is deliberately date-free; nothing in the assets states a founding year. Confirm the year (or confirm we stay date-free).
 - **3rd interior image** ("sticks out") — Gareth flagged `seating-area2` reads inconsistently against the graded set; decide whether to duotone/regrade or drop it.
 - **Deploy target** — Vercel project not yet created/connected; domain (`tcr.co.za`?) and hosting to confirm before launch.
+- **Trading hours** — needed to complete the `Restaurant` JSON-LD `openingHoursSpecification` (currently a marked TODO in `app/layout.tsx`).
+- **Social card** — `public/og-image.jpg` is a logo-on-midnight card; confirm whether to swap in a terrace/hero photo composition.
 
 ## Next up
 

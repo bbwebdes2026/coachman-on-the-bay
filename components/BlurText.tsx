@@ -8,9 +8,10 @@ import { motion, useReducedMotion } from "framer-motion";
  * Reserved for the hero headline — "The Coachman" resolving from blur. Do not
  * use it elsewhere; the motion system allows exactly one Blur Text on the site.
  *
- * The words are split for animation only: the accessible name comes from
- * `aria-label` on the wrapper and the pieces are `aria-hidden`, so a screen
- * reader hears one phrase rather than a stream of fragments.
+ * The words are split for animation only and are all `aria-hidden`. The accessible
+ * name comes from the parent heading (the <h1> in Hero carries `aria-label`), so a
+ * screen reader hears one phrase rather than a stream of fragments — and no ARIA
+ * naming attribute sits on a role-less <span>.
  */
 export default function BlurText({
   text,
@@ -32,7 +33,7 @@ export default function BlurText({
   if (reduced) return <span className={className}>{text}</span>;
 
   return (
-    <span className={className} aria-label={text}>
+    <span className={className}>
       {words.map((word, i) => (
         <motion.span
           key={`${word}-${i}`}
