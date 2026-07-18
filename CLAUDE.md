@@ -35,6 +35,9 @@ facebook.com/coachmanonthebay.
   Rand, wine pairing notes). Render all menu UI from this data — no menu screenshots in
   the UI. Note "S.Q." items (subject to quotation) and the 10% service-charge line for
   tables of six or more; include the footer line "All prices inclusive of VAT."
+- All menus are rendered from structured data (`/data/menu.ts` — the `menu-data.json`
+  equivalent for this stack), never from scanned images. Price changes are data edits
+  only.
 
 ## Design tokens
 
@@ -154,8 +157,9 @@ edges, duotone as deliberate art direction.
 
 ## Quality floor (non-negotiable)
 
-- Lighthouse: 90+ performance on the homepage, mobile. The Silk shader and GSAP scenes
-  must be code-split/lazy; no layout shift from images (always set dimensions).
+- Lighthouse: all four categories (Performance, Accessibility, Best Practices, SEO)
+  ≥ 90 on every changed page, mobile. The Silk shader and GSAP scenes must be
+  code-split/lazy; no layout shift from images (always set dimensions).
 - Fully responsive to 360px. The day-to-night narrative must work on mobile (simplify,
   don't remove).
 - Keyboard focus visible (cove-blue focus rings), semantic landmarks, alt text on all
@@ -163,6 +167,35 @@ edges, duotone as deliberate art direction.
 - `prefers-reduced-motion` respected everywhere.
 - Real content only: menu data from the transcription, real phone/address. No lorem
   ipsum anywhere, ever.
+
+## Workflow
+
+- Work strictly one section at a time. After completing a section: run the build, run
+  the Self-QA loop below, commit and push, update PROJECT_STATUS.md, then STOP and ask
+  for review before starting the next section.
+
+## Git discipline
+
+- Commit after every completed section with a descriptive message
+  (e.g. `feat(menu): render wine list from menu-data.json`).
+- Push to origin after every commit. Never end a session with uncommitted or unpushed
+  changes.
+
+## Self-QA loop (run before every review request)
+
+- Playwright screenshots of every changed page at 360px, 768px, 1440px. Review the
+  screenshots yourself and fix visual issues first.
+- Run Lighthouse on changed pages. All four categories must be ≥ 90.
+- Check WCAG AA contrast (4.5:1 body text, 3:1 large text) — especially gold-on-navy
+  combinations.
+- All images: WebP/AVIF, compressed, lazy-loaded below the fold.
+- Restaurant JSON-LD schema and OpenGraph tags present and valid on every page.
+
+## Status tracking
+
+- Maintain PROJECT_STATUS.md in the repo root. Update it at the end of every working
+  block: what was completed, what's in progress, decisions made, and current
+  quality-gate scores. Keep it terse.
 
 ## Build order
 
@@ -176,8 +209,9 @@ edges, duotone as deliberate art direction.
 7. Gallery, Visit/Reserve, footer. Commit.
 8. Performance + accessibility pass against the quality floor. Commit.
 
-Work one step per session. After each step, run the dev server, and self-review against
-this document before moving on.
+Work strictly one section at a time (see Workflow). After completing a section: run the
+build, run the Self-QA loop, commit and push, update PROJECT_STATUS.md, then STOP and ask
+for review before starting the next.
 
 ## First prompt to paste into Claude Code
 
