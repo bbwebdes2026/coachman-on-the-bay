@@ -1,7 +1,7 @@
 # PROJECT STATUS — The Coachman on the Bay
 
 > Maintained by Claude Code. Updated at the end of every working block.
-> Last updated: 2026-07-18 (session 6 — step 6a: SA Traditional cards)
+> Last updated: 2026-07-19 (session 7 — 6a reviewed + fix checkpoint)
 
 ## Current state (one paragraph)
 
@@ -13,9 +13,9 @@ night section, and the Flowing Menu navigator. The full `/menu` page is live and
 server-rendered from the typed transcription in `/data/menu.ts` (296 items, all
 eight categories anchored to match the navigator rows). Tokens, both Google Fonts,
 Lenis smooth scroll, and the Sharp/Real-ESRGAN image pipeline are all wired.
-Nothing is deployed to Vercel yet — everything runs on the local dev server.
-Homepage sections 6–10 (SA Traditional cards, Luxury Collection, the Chair,
-Gallery, Visit/Reserve) are not yet built.
+A preview deployment is live on Vercel at `coachman-on-the-bay.vercel.app`
+(production domain not yet decided). Homepage sections 6b–10 (Luxury Collection,
+the Chair, Gallery, Visit/Reserve) are not yet built.
 
 ## Section tracker
 
@@ -26,13 +26,13 @@ Gallery, Visit/Reserve) are not yet built.
 | Menu — Starters & Mains | done | Rendered on `/menu` from `data/menu.ts`; homepage cards N/A |
 | Menu — Seafood & Grill | done | Rendered on `/menu` (Seafood + Charcoal Grill categories) |
 | Menu — Burgers | done | Rendered on `/menu` |
-| Menu — SA Traditional Dishes | done | Full listing on `/menu`; homepage Spotlight Cards (6a) shipped — 4 dishes + wine pairings from `saTraditionalDishes`, cove spotlight, reduced-motion fallback |
+| Menu — SA Traditional Dishes | reviewed | Owner-approved 2026-07-19. Homepage Spotlight Cards (6a) — 4 dishes + wine pairings from `saTraditionalDishes`, cove spotlight, reduced-motion fallback. Fix checkpoint: Optima note typos corrected, pairing wine now links to `/menu#wine-cellar` |
 | Menu — Wine List & Luxury Collection | in progress | Full wine list + Luxury Collection listing done on `/menu`; homepage Silk-background section (step 6) not started |
 | Menu — Bar & Drinks | done | Rendered on `/menu` |
 | Gallery | not started | Step 7 — masonry food photography + Gradual Blur edges |
 | Contact / Booking / Map | not started | Step 7 — Visit/Reserve: address, hours, click-to-call, map, amber CTA |
 | Footer + global nav | in progress | `/menu` footer done (VAT + service-charge + phone); homepage footer + global nav not built |
-| SEO / schema / OpenGraph | done | `Restaurant` JSON-LD + full OpenGraph/Twitter/canonical + favicon (`app/icon.png`) shipped; `openingHoursSpecification` TODO pending owner hours |
+| SEO / schema / OpenGraph | done | `Restaurant` JSON-LD (incl. `openingHoursSpecification`, applied 2026-07-18) + full OpenGraph/Twitter/canonical + favicon (`app/icon.png`) shipped |
 
 Status meanings: **done** = built and self-QA passed; **reviewed** = owner approved at checkpoint.
 
@@ -54,7 +54,8 @@ detail (incl. original baseline) in QUALITY_AUDIT.md.
 
 ## In progress
 
-Step 6a (SA Traditional Spotlight Cards) complete and awaiting review. Next is **6b —
+Step 6a (SA Traditional Spotlight Cards) owner-reviewed and approved 2026-07-19; a small
+fix checkpoint (Optima tasting-note typos, pairing-line cross-link) is in. Next is **6b —
 the Luxury Collection** section with the Silk react.bits background (lazy-loaded,
 static-gradient fallback on mobile), then the Chair feature (one of only two sanctioned
 teal usages).
@@ -62,6 +63,7 @@ teal usages).
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-19 — 6a fix checkpoint: corrected the Optima tasting note ("intergrated"→"integrated", SA-dishes "mouthful"→"mouthfeel" to match its Luxury Collection entry — both owner-sanctioned); SA card pairing wine is now a `/menu#wine-cellar` link with a persistent cove underline (audit rule for cove inline text on grey). Reconciled stale docs: `openingHoursSpecification` marked done (was applied 2026-07-18), preview deploy noted live.
 2026-07-18 — Built step 6a: SA Traditional Spotlight Cards (`SATraditional.tsx`) — 4 dishes + pairings straight from `saTraditionalDishes`, cove cursor-spotlight (react.bits adapted), reduced-motion → static cove border, keyboard-focusable (focus lights the glow). Card content passes AA on navy-800; home A11y 95→96, no perf/console regression.
 2026-07-18 — Owner-confirmed content facts applied: founded 1978 (Heritage copy), address Brookes on the Bay/Summerstrand/Gqeberha 6001, hours Mon–Sat 11:30–22:00 / Sun 11:30–21:00. JSON-LD refactored to a typed module (`data/restaurant.ts`) + `<JsonLd>`; `Restaurant` node site-wide, `Menu` node on /menu.
 2026-07-18 — Applied audit quick wins 1–5: favicon (`app/icon.png`/`apple-icon.png`), full OG + `og-image.jpg` social card, `Restaurant` JSON-LD, menu `tel:` underline, hero `aria-label`→`<h1>`. Best Practices→100 both; A11y home 91→95, menu 96→100; console 404 cleared. `openingHoursSpecification` still owed by owner.
@@ -77,7 +79,7 @@ teal usages).
 
 **Remaining owner blockers — only these two:**
 - **Real vector logo** — current `coachman-mark.png` is keyed out of a beach marketing graphic; a workaround, not a final asset. Need the supplied SVG/vector mark.
-- **Deploy target** — Vercel project not yet created/connected; domain (`tcr.co.za`?) and hosting to confirm before launch.
+- **Production domain + launch config** — preview deployment is live at `coachman-on-the-bay.vercel.app`; the production domain decision (`tcr.co.za`?) and launch configuration remain to confirm before go-live.
 
 **Resolved 2026-07-18 (owner-confirmed):** founding year **1978** (worked into the Heritage copy); street address **Brookes on the Bay, Summerstrand, Gqeberha 6001**; trading hours **Mon–Sat 11:30–22:00 / Sun 11:30–21:00**. All three are now in the `Restaurant` JSON-LD (`data/restaurant.ts`) and `CONTACT` (`data/menu.ts`) for the step-7 footer.
 

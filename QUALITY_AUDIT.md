@@ -4,7 +4,7 @@
 > artifacts below were regenerated post-fix. Resolved: favicon 404 (console now clean,
 > Best Practices → **100** both pages), OpenGraph completed (`og:image`/`url`/`site_name`
 > /`twitter:image`/canonical), `Restaurant` JSON-LD added (`openingHoursSpecification`
-> still a TODO — owner hours owed), menu `tel:` link underlined (`link-in-text-block`
+> **resolved 2026-07-18** — owner-confirmed hours applied), menu `tel:` link underlined (`link-in-text-block`
 > cleared, menu Accessibility → **100**), hero `aria-label` moved to `<h1>`
 > (`aria-prohibited-attr` cleared, home Accessibility 91 → **95**). **Still open:** home
 > Performance (85, first-load JS — step-8 debt) and the 65 transient Scroll-Reveal
@@ -150,7 +150,7 @@ Extracted metadata: [`audit/meta/home.json`](audit/meta/home.json) ·
 - [ ] Add **`Restaurant`** JSON-LD (schema.org): `name`, `image`, `servesCuisine`
       (Steakhouse/Seafood), `address` (PostalAddress — Gqeberha beachfront),
       `telephone` `+27 41 584 0087`, `url` `https://www.tcr.co.za`, `priceRange`,
-      `openingHoursSpecification` (**hours needed from owner**), `sameAs`
+      `openingHoursSpecification` (~~hours needed from owner~~ **resolved 2026-07-18**), `sameAs`
       (facebook.com/coachmanonthebay). Emit site-wide from the root layout; add a
       `Menu`/`hasMenu` reference on `/menu`.
 
@@ -175,7 +175,7 @@ the "no console errors" check on both pages.
 **Quick wins (unblock most gates):**
 1. Add a favicon (`app/icon.png`) → clears the 404 / console-error fail on both pages.
 2. Add `og:image`, `og:url`, `og:site_name`, `twitter:image`, canonical → OG gate.
-3. Add `Restaurant` JSON-LD in the root layout → schema gate. *(Needs owner: opening hours.)*
+3. Add `Restaurant` JSON-LD in the root layout → schema gate. *(~~Needs owner: opening hours~~ — resolved 2026-07-18.)*
 4. Menu `tel:` link — persistent underline → clears `link-in-text-block`.
 5. Hero Blur-Text — move `aria-label` to a heading / `aria-hidden` the letter spans →
    clears `aria-prohibited-attr`.
@@ -190,5 +190,5 @@ the "no console errors" check on both pages.
 
 ## Owner input needed
 
-- **Opening hours** — required to complete the `Restaurant` JSON-LD `openingHoursSpecification`.
-- **Social card art** — confirm the `og:image` (terrace hero vs. logo-on-midnight).
+- ~~**Opening hours** — required to complete the `Restaurant` JSON-LD `openingHoursSpecification`.~~ **Resolved 2026-07-18** — owner confirmed Mon–Sat 11:30–22:00 / Sun 11:30–21:00; applied to the schema.
+- **Social card art** — confirm the `og:image` (terrace hero vs. logo-on-midnight). *(Still open — owner call.)*

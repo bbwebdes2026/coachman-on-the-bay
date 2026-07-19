@@ -8,8 +8,10 @@
  *
  * Wording, spelling and punctuation follow the printed menu deliberately —
  * including its own inconsistencies ("Specialties" vs "Speciality", "Kota Flambe"
- * without the accent, "intergrated" in two tasting notes). Do not "correct" them
- * without the client's say-so; they are what the restaurant prints.
+ * without the accent). Do not "correct" them without the client's say-so; they are
+ * what the restaurant prints. (Two exceptions the owner did sign off on: the Optima
+ * note's "intergrated" → "integrated", and its SA-dishes copy "mouthful" → "mouthfeel"
+ * to match the same wine's Luxury Collection entry.)
  */
 
 /** "S.Q." on the printed menu — subject to quotation. */
@@ -748,7 +750,7 @@ const southAfricanTraditional: MenuCategory = {
             "Traditional South African oxtail curry. Served with rice and papadums.",
           pairing: {
             wine: "Anthonij Rupert Optima",
-            note: "The silky, plush textured palate is full of ripe plums, hedgerow fruit, cocoa, spice and cigarbox flavours that makes for an enveloping mouthful. Complex and elegant, the oak harmonizes with the fruit, ending with a lingering intergrated finish.",
+            note: "The silky, plush textured palate is full of ripe plums, hedgerow fruit, cocoa, spice and cigarbox flavours that makes for an enveloping mouthfeel. Complex and elegant, the oak harmonizes with the fruit, ending with a lingering integrated finish.",
           },
         },
         {
@@ -1358,7 +1360,7 @@ export const luxuryCollection: MenuSection = {
       name: "Anthonij Rupert Optima",
       price: 465,
       tastingNote:
-        "The silky, plush textured palate is full of ripe plums, hedgerow fruit, cocoa, spice and cigarbox flavours that makes for an enveloping mouthfeel. Complex and elegant, the oak harmonizes with the fruit, ending with a lingering intergrated finish.",
+        "The silky, plush textured palate is full of ripe plums, hedgerow fruit, cocoa, spice and cigarbox flavours that makes for an enveloping mouthfeel. Complex and elegant, the oak harmonizes with the fruit, ending with a lingering integrated finish.",
     },
     {
       name: "La Motte Syrah",

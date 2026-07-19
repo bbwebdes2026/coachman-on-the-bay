@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import { saTraditionalDishes, formatPrice, type MenuItem } from "@/data/menu";
 
@@ -76,9 +77,16 @@ function SpotlightCard({ dish }: { dish: MenuItem }) {
 
         {dish.pairing && (
           <p className="mt-5 border-t border-silver-400/12 pt-4 font-sans text-[0.8rem] leading-relaxed text-silver-400 sm:text-sm">
-            <span className="font-medium text-cove">
+            {/* Cross-link to the wine on /menu. The wine cellar is the finest
+                anchor the Flowing Menu navigator exposes, and every pairing wine
+                lives there; the persistent underline is the audit rule for cove
+                inline text on grey body copy (matches the footer tel: link). */}
+            <Link
+              href="/menu#wine-cellar"
+              className="font-medium text-cove underline decoration-cove/50 underline-offset-2 transition-colors hover:decoration-cove"
+            >
               Best served with {dish.pairing.wine}
-            </span>{" "}
+            </Link>{" "}
             — {dish.pairing.note}
           </p>
         )}
