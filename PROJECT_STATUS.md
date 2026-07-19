@@ -1,7 +1,7 @@
 # PROJECT STATUS — The Coachman on the Bay
 
 > Maintained by Claude Code. Updated at the end of every working block.
-> Last updated: 2026-07-19 (session 7 — 6a reviewed + fix checkpoint)
+> Last updated: 2026-07-19 (session 7 — step 6b: Luxury Collection + Silk)
 
 ## Current state (one paragraph)
 
@@ -14,20 +14,22 @@ server-rendered from the typed transcription in `/data/menu.ts` (296 items, all
 eight categories anchored to match the navigator rows). Tokens, both Google Fonts,
 Lenis smooth scroll, and the Sharp/Real-ESRGAN image pipeline are all wired.
 A preview deployment is live on Vercel at `coachman-on-the-bay.vercel.app`
-(production domain not yet decided). Homepage sections 6b–10 (Luxury Collection,
-the Chair, Gallery, Visit/Reserve) are not yet built.
+(production domain not yet decided). Homepage sections 6c–10 (the Chair,
+Gallery, Visit/Reserve) are not yet built; the Luxury Collection (6b) — the
+premium red tier on the Silk shader background — now renders after the SA
+Traditional cards.
 
 ## Section tracker
 
 | Section | Status | Notes |
 |---|---|---|
-| Hero / Home | in progress | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, **SA Traditional cards (6a)** done; remaining: Luxury/Silk (6b), Chair, Gallery, Visit/Reserve |
+| Hero / Home | in progress | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, SA Traditional cards (6a), **Luxury Collection + Silk (6b)** done; remaining: Chair, Gallery, Visit/Reserve |
 | About | done | Heritage strip — Scroll Reveal story paragraph + duotone interior photo |
 | Menu — Starters & Mains | done | Rendered on `/menu` from `data/menu.ts`; homepage cards N/A |
 | Menu — Seafood & Grill | done | Rendered on `/menu` (Seafood + Charcoal Grill categories) |
 | Menu — Burgers | done | Rendered on `/menu` |
 | Menu — SA Traditional Dishes | reviewed | Owner-approved 2026-07-19. Homepage Spotlight Cards (6a) — 4 dishes + wine pairings from `saTraditionalDishes`, cove spotlight, reduced-motion fallback. Fix checkpoint: Optima note typos corrected, pairing wine now links to `/menu#wine-cellar` |
-| Menu — Wine List & Luxury Collection | in progress | Full wine list + Luxury Collection listing done on `/menu`; homepage Silk-background section (step 6) not started |
+| Menu — Wine List & Luxury Collection | done | Full wine list + Luxury Collection on `/menu`; homepage Silk-background section (6b) shipped — 10 premium reds from `luxuryCollection`, WebGL silk (lazy `ogl` chunk, ≥768px + motion-on + in-view only), static-gradient fallback for mobile/reduced-motion/SSR |
 | Menu — Bar & Drinks | done | Rendered on `/menu` |
 | Gallery | not started | Step 7 — masonry food photography + Gradual Blur edges |
 | Contact / Booking / Map | not started | Step 7 — Visit/Reserve: address, hours, click-to-call, map, amber CTA |
@@ -43,26 +45,25 @@ detail (incl. original baseline) in QUALITY_AUDIT.md.
 
 | Gate | Result | Date |
 |---|---|---|
-| Lighthouse — Performance | home **85** ❌ (first-load JS / LCP — step-8 debt) · menu 90 ✅ | 2026-07-18 |
-| Lighthouse — Accessibility | home 96 ✅ · menu 100 ✅ | 2026-07-18 |
-| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ (favicon added, console clean) | 2026-07-18 |
-| Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-18 |
-| WCAG AA contrast (all pages) | mostly pass — hero `aria-label` & menu `tel:` link fixed; remaining: 65 Scroll-Reveal words dim mid-animation at scroll-top (transient; motion-off renders full-contrast) | 2026-07-18 |
-| Responsive 360 / 768 / 1440 | pass — measured `docScroll==viewport` at all three widths, CLS 0 (caught + fixed a 6a heading overflow at 360) | 2026-07-18 |
+| Lighthouse — Performance | home **92** ✅ (Silk kept off mobile → no cost) · menu 90 ✅ | 2026-07-19 |
+| Lighthouse — Accessibility | home 96 ✅ · menu 100 ✅ | 2026-07-19 |
+| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ (0 console errors incl. Silk mounted) | 2026-07-19 |
+| Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-19 |
+| WCAG AA contrast (all pages) | mostly pass — axe on the Luxury section (night state) = 0 violations; remaining flag is the transient scroll-top Scroll-Reveal artifact (motion-off renders full-contrast) | 2026-07-19 |
+| Responsive 360 / 768 / 1440 | pass — `docScroll==viewport` at all three widths (caught + fixed a 6b heading overflow at 360, `text-4xl`→`text-3xl`) | 2026-07-19 |
 | Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
 | JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD (foundingDate, full address, openingHoursSpecification) + `Menu` node on /menu + full OG/Twitter/canonical + favicon | 2026-07-18 |
 
 ## In progress
 
-Step 6a (SA Traditional Spotlight Cards) owner-reviewed and approved 2026-07-19; a small
-fix checkpoint (Optima tasting-note typos, pairing-line cross-link) is in. Next is **6b —
-the Luxury Collection** section with the Silk react.bits background (lazy-loaded,
-static-gradient fallback on mobile), then the Chair feature (one of only two sanctioned
-teal usages).
+Step 6b (Luxury Collection + Silk background) complete and awaiting review. Next is **6c —
+the Chair feature**, the full-width teal moment (one of only two sanctioned teal usages),
+which closes out build-order step 6.
 
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-19 — Built step 6b: Luxury Collection (`LuxuryCollection.tsx`) — 10 premium reds from `luxuryCollection` as a serif list (silver rules, tabular prices, sans tasting notes). Silk background ported from react.bits via `ogl` (`Silk.tsx`); added `ogl` dependency (no new vulns — audit debt is pre-existing Next). Silk is gated hard: dynamic `ssr:false` (own lazy chunk), mounts only ≥768px + motion-allowed + in-view; static `.silk-fallback` gradient is the SSR/mobile/reduced-motion base. Verified: canvas mounts 1440/768, absent 360/reduced; home Perf 92, 0 console errors with Silk running; axe 0 on the section.
 2026-07-19 — 6a fix checkpoint: corrected the Optima tasting note ("intergrated"→"integrated", SA-dishes "mouthful"→"mouthfeel" to match its Luxury Collection entry — both owner-sanctioned); SA card pairing wine is now a `/menu#wine-cellar` link with a persistent cove underline (audit rule for cove inline text on grey). Reconciled stale docs: `openingHoursSpecification` marked done (was applied 2026-07-18), preview deploy noted live.
 2026-07-18 — Built step 6a: SA Traditional Spotlight Cards (`SATraditional.tsx`) — 4 dishes + pairings straight from `saTraditionalDishes`, cove cursor-spotlight (react.bits adapted), reduced-motion → static cove border, keyboard-focusable (focus lights the glow). Card content passes AA on navy-800; home A11y 95→96, no perf/console regression.
 2026-07-18 — Owner-confirmed content facts applied: founded 1978 (Heritage copy), address Brookes on the Bay/Summerstrand/Gqeberha 6001, hours Mon–Sat 11:30–22:00 / Sun 11:30–21:00. JSON-LD refactored to a typed module (`data/restaurant.ts`) + `<JsonLd>`; `Restaurant` node site-wide, `Menu` node on /menu.
@@ -89,7 +90,6 @@ teal usages).
 
 ## Next up
 
-**Step 6b** — the Luxury Collection homepage section with the Silk react.bits
-background (lazy-loaded; static-gradient fallback on mobile / low frame rate) — the
-premium red-wine tier as an elegant serif list. Then the Chair feature moment. Begin
-after 6a checkpoint approval.
+**Step 6c** — the Chair feature moment: full-width feature for the teal Coachman chair,
+one of only two sanctioned teal usages, photograph-led with minimal confident copy. Closes
+build-order step 6. Begin after 6b review approval.

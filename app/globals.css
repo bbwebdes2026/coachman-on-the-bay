@@ -76,6 +76,22 @@
 }
 
 /*
+ * Silk background fallback (see components/LuxuryCollection.tsx). The static
+ * midnight-navy sheen the Luxury Collection paints on the server, keeps on mobile,
+ * and shows under reduced motion — the WebGL silk only ever fades in on top of it.
+ * A deep off-centre navy highlight falling to midnight reads as folded fabric.
+ */
+.silk-fallback {
+  background:
+    radial-gradient(
+      130% 120% at 28% 18%,
+      #1b2c4e 0%,
+      #101d33 42%,
+      theme("colors.midnight") 100%
+    );
+}
+
+/*
  * Flowing Menu (react.bits, adapted) — the navigator's per-row hover strip.
  * The coloured panel slides in on the cursor's edge (GSAP, in the component);
  * this is only the continuous horizontal drift of the strip's contents. Two

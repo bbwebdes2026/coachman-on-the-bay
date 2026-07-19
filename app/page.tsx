@@ -5,6 +5,7 @@ import DayToNight from "@/components/DayToNight";
 import DuskStars from "@/components/DuskStars";
 import FlowingMenu from "@/components/FlowingMenu";
 import SATraditional from "@/components/SATraditional";
+import LuxuryCollection from "@/components/LuxuryCollection";
 
 export default function Home() {
   return (
@@ -32,6 +33,9 @@ export default function Home() {
 
       {/* Section 6a — SA Traditional Spotlight Cards. */}
       <SATraditional />
+
+      {/* Section 7 — The Luxury Collection, on the Silk background. */}
+      <LuxuryCollection />
     </main>
   );
 }
