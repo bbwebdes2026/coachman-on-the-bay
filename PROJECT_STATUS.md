@@ -1,7 +1,7 @@
 # PROJECT STATUS — The Coachman on the Bay
 
 > Maintained by Claude Code. Updated at the end of every working block.
-> Last updated: 2026-07-19 (session 7 — step 6b: Luxury Collection + Silk)
+> Last updated: 2026-07-19 (session 7 — step 6c: The Chair — step 6 complete)
 
 ## Current state (one paragraph)
 
@@ -14,16 +14,16 @@ server-rendered from the typed transcription in `/data/menu.ts` (296 items, all
 eight categories anchored to match the navigator rows). Tokens, both Google Fonts,
 Lenis smooth scroll, and the Sharp/Real-ESRGAN image pipeline are all wired.
 A preview deployment is live on Vercel at `coachman-on-the-bay.vercel.app`
-(production domain not yet decided). Homepage sections 6c–10 (the Chair,
-Gallery, Visit/Reserve) are not yet built; the Luxury Collection (6b) — the
-premium red tier on the Silk shader background — now renders after the SA
-Traditional cards.
+(production domain not yet decided). Build-order **step 6 is now complete** — the
+homepage renders from Hero through the SA Traditional cards, the Luxury Collection
+(Silk background) and **The Chair** (the teal feature moment). Remaining homepage
+work is step 7: the Gallery, the Visit/Reserve section, and the homepage footer.
 
 ## Section tracker
 
 | Section | Status | Notes |
 |---|---|---|
-| Hero / Home | in progress | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, SA Traditional cards (6a), **Luxury Collection + Silk (6b)** done; remaining: Chair, Gallery, Visit/Reserve |
+| Hero / Home | in progress | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, SA Traditional cards (6a), Luxury Collection + Silk (6b), **The Chair (6c)** done; remaining: Gallery, Visit/Reserve (step 7) |
 | About | done | Heritage strip — Scroll Reveal story paragraph + duotone interior photo |
 | Menu — Starters & Mains | done | Rendered on `/menu` from `data/menu.ts`; homepage cards N/A |
 | Menu — Seafood & Grill | done | Rendered on `/menu` (Seafood + Charcoal Grill categories) |
@@ -45,24 +45,26 @@ detail (incl. original baseline) in QUALITY_AUDIT.md.
 
 | Gate | Result | Date |
 |---|---|---|
-| Lighthouse — Performance | home **92** ✅ (Silk kept off mobile → no cost) · menu 90 ✅ | 2026-07-19 |
+| Lighthouse — Performance | home **94** ✅ (Chair is server-rendered, 0 client JS) · menu 90 ✅ | 2026-07-19 |
 | Lighthouse — Accessibility | home 96 ✅ · menu 100 ✅ | 2026-07-19 |
-| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ (0 console errors incl. Silk mounted) | 2026-07-19 |
+| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ | 2026-07-19 |
 | Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-19 |
-| WCAG AA contrast (all pages) | mostly pass — axe on the Luxury section (night state) = 0 violations; remaining flag is the transient scroll-top Scroll-Reveal artifact (motion-off renders full-contrast) | 2026-07-19 |
-| Responsive 360 / 768 / 1440 | pass — `docScroll==viewport` at all three widths (caught + fixed a 6b heading overflow at 360, `text-4xl`→`text-3xl`) | 2026-07-19 |
+| WCAG AA contrast (all pages) | mostly pass — axe on the Luxury + Chair sections (night state) = 0 violations; remaining flag is the transient scroll-top Scroll-Reveal artifact (motion-off renders full-contrast) | 2026-07-19 |
+| Responsive 360 / 768 / 1440 | pass — `docScroll==viewport` at all three widths (caught + fixed a 6c mobile copy-column overflow: `text-4xl`→`text-3xl` heading + block-flow copy under md) | 2026-07-19 |
 | Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
 | JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD (foundingDate, full address, openingHoursSpecification) + `Menu` node on /menu + full OG/Twitter/canonical + favicon | 2026-07-18 |
 
 ## In progress
 
-Step 6b (Luxury Collection + Silk background) complete and awaiting review. Next is **6c —
-the Chair feature**, the full-width teal moment (one of only two sanctioned teal usages),
-which closes out build-order step 6.
+Step 6c (The Chair) complete and awaiting review — this closes out **build-order step 6**.
+Next is **step 7**: the Gallery (masonry food photography with Gradual Blur on the
+container edges), the Visit/Reserve section (address + hours from `CONTACT`, click-to-call,
+map, amber CTA), and the homepage footer.
 
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-19 — Built step 6c: The Chair (`Chair.tsx`) — the full-width teal feature. Teal is carried entirely by the photograph (the tufted chair); no teal leaks into the chrome — eyebrow is deliberately neutral silver (not the site's cove eyebrow) so nothing cool competes with the chair. Split layout, not a wide crop: a tall image panel crops the near-square source's sides, keeping both the gold mark and the chair; copy sits on its own midnight panel (guaranteed contrast). Server component, 0 client JS, static (reduced-motion-safe by construction). Home Perf 92→94; axe 0 on the section.
 2026-07-19 — Built step 6b: Luxury Collection (`LuxuryCollection.tsx`) — 10 premium reds from `luxuryCollection` as a serif list (silver rules, tabular prices, sans tasting notes). Silk background ported from react.bits via `ogl` (`Silk.tsx`); added `ogl` dependency (no new vulns — audit debt is pre-existing Next). Silk is gated hard: dynamic `ssr:false` (own lazy chunk), mounts only ≥768px + motion-allowed + in-view; static `.silk-fallback` gradient is the SSR/mobile/reduced-motion base. Verified: canvas mounts 1440/768, absent 360/reduced; home Perf 92, 0 console errors with Silk running; axe 0 on the section.
 2026-07-19 — 6a fix checkpoint: corrected the Optima tasting note ("intergrated"→"integrated", SA-dishes "mouthful"→"mouthfeel" to match its Luxury Collection entry — both owner-sanctioned); SA card pairing wine is now a `/menu#wine-cellar` link with a persistent cove underline (audit rule for cove inline text on grey). Reconciled stale docs: `openingHoursSpecification` marked done (was applied 2026-07-18), preview deploy noted live.
 2026-07-18 — Built step 6a: SA Traditional Spotlight Cards (`SATraditional.tsx`) — 4 dishes + pairings straight from `saTraditionalDishes`, cove cursor-spotlight (react.bits adapted), reduced-motion → static cove border, keyboard-focusable (focus lights the glow). Card content passes AA on navy-800; home A11y 95→96, no perf/console regression.
@@ -90,6 +92,7 @@ which closes out build-order step 6.
 
 ## Next up
 
-**Step 6c** — the Chair feature moment: full-width feature for the teal Coachman chair,
-one of only two sanctioned teal usages, photograph-led with minimal confident copy. Closes
-build-order step 6. Begin after 6b review approval.
+**Step 7** — Gallery (masonry food photography with Gradual Blur on the container edges);
+Visit/Reserve (address + hours from `CONTACT` in `data/menu.ts`, click-to-call `041 584
+0087`, map, amber CTA repeated); homepage footer (logo, Facebook, VAT + service-charge
+notes). Begin after step 6 review approval.

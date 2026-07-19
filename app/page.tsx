@@ -6,6 +6,7 @@ import DuskStars from "@/components/DuskStars";
 import FlowingMenu from "@/components/FlowingMenu";
 import SATraditional from "@/components/SATraditional";
 import LuxuryCollection from "@/components/LuxuryCollection";
+import Chair from "@/components/Chair";
 
 export default function Home() {
   return (
@@ -36,6 +37,9 @@ export default function Home() {
 
       {/* Section 7 — The Luxury Collection, on the Silk background. */}
       <LuxuryCollection />
+
+      {/* Section 8 — The Chair: the teal feature moment. */}
+      <Chair />
     </main>
   );
 }
