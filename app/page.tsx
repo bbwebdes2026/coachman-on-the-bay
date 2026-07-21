@@ -7,6 +7,9 @@ import FlowingMenu from "@/components/FlowingMenu";
 import SATraditional from "@/components/SATraditional";
 import LuxuryCollection from "@/components/LuxuryCollection";
 import Chair from "@/components/Chair";
+import Gallery from "@/components/Gallery";
+import VisitReserve from "@/components/VisitReserve";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -40,6 +43,15 @@ export default function Home() {
 
       {/* Section 8 — The Chair: the teal feature moment. */}
       <Chair />
+
+      {/* Section 9 — Gallery: masonry food photography, Gradual Blur on the edges. */}
+      <Gallery />
+
+      {/* Section 10 — Visit / Reserve: address, hours, click-to-call, map, CTA. */}
+      <VisitReserve />
+
+      {/* Footer — logo, Facebook, VAT + service-charge notes. */}
+      <Footer />
     </main>
   );
 }

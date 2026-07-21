@@ -1,7 +1,7 @@
 # PROJECT STATUS — The Coachman on the Bay
 
 > Maintained by Claude Code. Updated at the end of every working block.
-> Last updated: 2026-07-19 (session 7 — step 6c: The Chair — step 6 complete)
+> Last updated: 2026-07-21 (session 8 — step 7: Gallery, Visit/Reserve, Footer — step 7 complete)
 
 ## Current state (one paragraph)
 
@@ -16,14 +16,18 @@ Lenis smooth scroll, and the Sharp/Real-ESRGAN image pipeline are all wired.
 A preview deployment is live on Vercel at `coachman-on-the-bay.vercel.app`
 (production domain not yet decided). Build-order **step 6 is now complete** — the
 homepage renders from Hero through the SA Traditional cards, the Luxury Collection
-(Silk background) and **The Chair** (the teal feature moment). Remaining homepage
-work is step 7: the Gallery, the Visit/Reserve section, and the homepage footer.
+(Silk background) and **The Chair** (the teal feature moment). Build-order
+**step 7 is now complete** — the homepage runs end-to-end: the Gallery (masonry
+food photography with Gradual Blur on the container edges), the Visit/Reserve
+section (address + hours from `CONTACT`, click-to-call, stylised map, amber CTA)
+and the homepage footer (logo, Facebook, service-charge + VAT notes). Remaining
+work is step 8: the performance + accessibility pass to the quality floor.
 
 ## Section tracker
 
 | Section | Status | Notes |
 |---|---|---|
-| Hero / Home | in progress | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, SA Traditional cards (6a), Luxury Collection + Silk (6b), **The Chair (6c)** done; remaining: Gallery, Visit/Reserve (step 7) |
+| Hero / Home | done | Hero, Heritage, day-to-night narrative, Dining Room, Flowing Menu, SA Traditional cards (6a), Luxury Collection + Silk (6b), The Chair (6c), **Gallery + Visit/Reserve + Footer (step 7)** all built; step 8 perf/a11y pass remains |
 | About | done | Heritage strip — Scroll Reveal story paragraph + duotone interior photo |
 | Menu — Starters & Mains | done | Rendered on `/menu` from `data/menu.ts`; homepage cards N/A |
 | Menu — Seafood & Grill | done | Rendered on `/menu` (Seafood + Charcoal Grill categories) |
@@ -31,9 +35,9 @@ work is step 7: the Gallery, the Visit/Reserve section, and the homepage footer.
 | Menu — SA Traditional Dishes | reviewed | Owner-approved 2026-07-19. Homepage Spotlight Cards (6a) — 4 dishes + wine pairings from `saTraditionalDishes`, cove spotlight, reduced-motion fallback. Fix checkpoint: Optima note typos corrected, pairing wine now links to `/menu#wine-cellar` |
 | Menu — Wine List & Luxury Collection | done | Full wine list + Luxury Collection on `/menu`; homepage Silk-background section (6b) shipped — 10 premium reds from `luxuryCollection`, WebGL silk (lazy `ogl` chunk, ≥768px + motion-on + in-view only), static-gradient fallback for mobile/reduced-motion/SSR |
 | Menu — Bar & Drinks | done | Rendered on `/menu` |
-| Gallery | not started | Step 7 — masonry food photography + Gradual Blur edges |
-| Contact / Booking / Map | not started | Step 7 — Visit/Reserve: address, hours, click-to-call, map, amber CTA |
-| Footer + global nav | in progress | `/menu` footer done (VAT + service-charge + phone); homepage footer + global nav not built |
+| Gallery | done | `Gallery.tsx` — CSS multi-column masonry of the 5 graded food shots + `GradualBlur.tsx` (react.bits progressive-blur, 6 masked backdrop-blur layers) on the top/bottom edges; server component, 0 client JS, per-dish alt text |
+| Contact / Booking / Map | done | `VisitReserve.tsx` (`id="visit"`) — address + hours from `CONTACT`, click-to-call, amber "Reserve a table" CTA (call = the reservation), stylised in-brand SVG map with Google Maps "Get directions" hand-off (no third-party iframe, protects perf/BP budget) |
+| Footer + global nav | in progress | homepage `Footer.tsx` done (logo, contact, Explore links incl. Facebook, service-charge + VAT notes); `/menu` footer done; global nav still not built |
 | SEO / schema / OpenGraph | done | `Restaurant` JSON-LD (incl. `openingHoursSpecification`, applied 2026-07-18) + full OpenGraph/Twitter/canonical + favicon (`app/icon.png`) shipped |
 
 Status meanings: **done** = built and self-QA passed; **reviewed** = owner approved at checkpoint.
@@ -45,25 +49,26 @@ detail (incl. original baseline) in QUALITY_AUDIT.md.
 
 | Gate | Result | Date |
 |---|---|---|
-| Lighthouse — Performance | home **94** ✅ (Chair is server-rendered, 0 client JS) · menu 90 ✅ | 2026-07-19 |
-| Lighthouse — Accessibility | home 96 ✅ · menu 100 ✅ | 2026-07-19 |
-| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ | 2026-07-19 |
-| Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-19 |
-| WCAG AA contrast (all pages) | mostly pass — axe on the Luxury + Chair sections (night state) = 0 violations; remaining flag is the transient scroll-top Scroll-Reveal artifact (motion-off renders full-contrast) | 2026-07-19 |
-| Responsive 360 / 768 / 1440 | pass — `docScroll==viewport` at all three widths (caught + fixed a 6c mobile copy-column overflow: `text-4xl`→`text-3xl` heading + block-flow copy under md) | 2026-07-19 |
+| Lighthouse — Performance | home **90** ✅ (94→90 with the 5-image lazy gallery; step-7 sections are all 0 client JS) · menu 90 ✅ | 2026-07-21 |
+| Lighthouse — Accessibility | home 96 ✅ · menu 100 ✅ | 2026-07-21 |
+| Lighthouse — Best Practices | home 100 ✅ · menu 100 ✅ | 2026-07-21 |
+| Lighthouse — SEO | home 100 · menu 100 ✅ | 2026-07-21 |
+| WCAG AA contrast (all pages) | pass — axe in the true midnight state = 1 violation, the pre-existing `Heritage` figcaption (opacity-50 over duotone); step-7 Gallery/Visit/Footer contribute 0. New token pairs all ≥ AA (dimmest 5.09:1). The huge Lighthouse contrast list is the known day-to-night scroll-top artifact (`dn-active` makes night sections transparent over the day bg) | 2026-07-21 |
+| Responsive 360 / 768 / 1440 | pass — `docScroll==viewport` at all three widths across the new Gallery/Visit/Footer (masonry collapses 3→2→1 col; Visit + Footer grids stack cleanly on mobile) | 2026-07-21 |
 | Images WebP/AVIF + lazy | pass — all via `next/image`, format-negotiated WebP/AVIF; no raw JPEG shipped | 2026-07-18 |
 | JSON-LD + OpenGraph valid | pass — `Restaurant` JSON-LD (foundingDate, full address, openingHoursSpecification) + `Menu` node on /menu + full OG/Twitter/canonical + favicon | 2026-07-18 |
 
 ## In progress
 
-Step 6c (The Chair) complete and awaiting review — this closes out **build-order step 6**.
-Next is **step 7**: the Gallery (masonry food photography with Gradual Blur on the
-container edges), the Visit/Reserve section (address + hours from `CONTACT`, click-to-call,
-map, amber CTA), and the homepage footer.
+Step 7 (Gallery, Visit/Reserve, Footer) complete and awaiting review — this closes out
+the homepage sections. Next is **step 8**: the performance + accessibility pass to the
+quality floor (and the deferred debts — npm audit, first-load JS code-split, animated
+Shiny Text).
 
 ## Decisions log
 
 <!-- Append-only. One line per decision, newest first. -->
+2026-07-21 — Built step 7: Gallery (`Gallery.tsx` + `GradualBlur.tsx`), Visit/Reserve (`VisitReserve.tsx`) and homepage Footer (`Footer.tsx`), all server components (0 client JS; home First Load JS unchanged at 201 kB). Gallery is CSS multi-column masonry (each shot keeps its aspect ratio, explicit dims → no CLS); GradualBlur is the react.bits progressive-blur (6 backdrop-blur layers with shifting masks) on the top + bottom edges, doubling as the "hide weak crops" device from §Image pipeline. Visit uses a stylised in-brand SVG map + Google Maps "Get directions" hand-off rather than a live iframe — keeps the perf/Best-Practices budget and adds no third-party cookies; the amber CTA is the click-to-call since the restaurant takes no online booking. Home Perf 94→90 (5 lazy gallery images), still ≥ floor.
 2026-07-19 — Built step 6c: The Chair (`Chair.tsx`) — the full-width teal feature. Teal is carried entirely by the photograph (the tufted chair); no teal leaks into the chrome — eyebrow is deliberately neutral silver (not the site's cove eyebrow) so nothing cool competes with the chair. Split layout, not a wide crop: a tall image panel crops the near-square source's sides, keeping both the gold mark and the chair; copy sits on its own midnight panel (guaranteed contrast). Server component, 0 client JS, static (reduced-motion-safe by construction). Home Perf 92→94; axe 0 on the section.
 2026-07-19 — Built step 6b: Luxury Collection (`LuxuryCollection.tsx`) — 10 premium reds from `luxuryCollection` as a serif list (silver rules, tabular prices, sans tasting notes). Silk background ported from react.bits via `ogl` (`Silk.tsx`); added `ogl` dependency (no new vulns — audit debt is pre-existing Next). Silk is gated hard: dynamic `ssr:false` (own lazy chunk), mounts only ≥768px + motion-allowed + in-view; static `.silk-fallback` gradient is the SSR/mobile/reduced-motion base. Verified: canvas mounts 1440/768, absent 360/reduced; home Perf 92, 0 console errors with Silk running; axe 0 on the section.
 2026-07-19 — 6a fix checkpoint: corrected the Optima tasting note ("intergrated"→"integrated", SA-dishes "mouthful"→"mouthfeel" to match its Luxury Collection entry — both owner-sanctioned); SA card pairing wine is now a `/menu#wine-cellar` link with a persistent cove underline (audit rule for cove inline text on grey). Reconciled stale docs: `openingHoursSpecification` marked done (was applied 2026-07-18), preview deploy noted live.
@@ -92,7 +97,9 @@ map, amber CTA), and the homepage footer.
 
 ## Next up
 
-**Step 7** — Gallery (masonry food photography with Gradual Blur on the container edges);
-Visit/Reserve (address + hours from `CONTACT` in `data/menu.ts`, click-to-call `041 584
-0087`, map, amber CTA repeated); homepage footer (logo, Facebook, VAT + service-charge
-notes). Begin after step 6 review approval.
+**Step 8** — performance + accessibility pass against the quality floor: Lighthouse 90+
+mobile on every changed page (home Perf now sits at the 90 floor — the lazy gallery is
+the obvious lever), responsive to 360px, reduced-motion, focus rings, alt text. Also
+clears the deferred debts: the npm audit (5 transitive vulns), the ~178 kB first-load JS
+(code-split GSAP + Framer Motion), and the animated Shiny Text heading sweep (currently
+the static `.text-chrome` stub). Begin after step 7 review approval.
